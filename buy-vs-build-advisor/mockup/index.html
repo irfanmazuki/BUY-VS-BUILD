@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buy vs Build Advisor | PETRONAS</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon">B</div>
+          <span>Buy vs Build Advisor</span>
+        </div>
+        <div style="font-size: 13px; opacity: 0.9">
+          Accelerate decisions from 20 days to 2 days
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" data-tab="analyze">
+          Analyze Requirements
+        </button>
+        <button class="tab" data-tab="results">Results & Comparison</button>
+        <button class="tab" data-tab="existing">Existing Solutions</button>
+        <button class="tab" data-tab="market">Market Solutions</button>
+      </div>
+
+      <!-- Tab: Analyze Requirements -->
+      <div id="analyze-tab" class="tab-content active">
+        <div class="section-header">
+          <h2>Enter Your Requirements</h2>
+          <p>
+            Describe your functional requirements and get instant
+            recommendations on whether to Buy, Build, or Reuse existing
+            solutions.
+          </p>
+        </div>
+
+        <div class="card requirement-input">
+          <label
+            for="requirements"
+            style="
+              display: block;
+              font-weight: 600;
+              margin-bottom: 12px;
+              color: var(--text);
+            "
+          >
+            Functional Requirements
+          </label>
+          <textarea
+            id="requirements"
+            placeholder="Enter your requirements, one per line. For example:&#10;- Asset tracking and maintenance scheduling&#10;- Mobile access for field workers&#10;- Work order management&#10;- Reporting and analytics"
+          ></textarea>
+
+          <div class="button-group">
+            <button id="analyzeBtn" class="btn btn-primary">
+              Analyze & Get Recommendation
+            </button>
+            <button id="loadSampleBtn" class="btn btn-secondary">
+              Load Sample Requirements
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Results & Comparison -->
+      <div id="results-tab" class="tab-content">
+        <div class="section-header">
+          <h2>Analysis Results</h2>
+          <p>
+            Based on your requirements, here's our recommendation and
+            side-by-side comparison.
+          </p>
+        </div>
+
+        <!-- Recommendation Banner -->
+        <div id="recommendationBanner" class="recommendation-banner">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- Comparison Grid -->
+        <div id="comparisonGrid" class="comparison-grid">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <div
+          style="
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+          "
+        >
+          <p style="font-size: 16px">
+            Enter your requirements in the "Analyze Requirements" tab to see
+            results here.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tab: Existing Solutions Catalog -->
+      <div id="existing-tab" class="tab-content">
+        <div class="section-header">
+          <h2>Existing Solutions Catalog</h2>
+          <p>
+            Browse internal applications and systems that can potentially be
+            reused. Single source of truth for PETRONAS applications.
+          </p>
+        </div>
+
+        <div id="existingCatalog" class="catalog-grid">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Tab: Market Solutions -->
+      <div id="market-tab" class="tab-content">
+        <div class="section-header">
+          <h2>Market Solutions Intelligence</h2>
+          <p>
+            Curated market solutions based on Gartner, Forrester, and industry
+            research. Quickly identify Buy options.
+          </p>
+        </div>
+
+        <div id="marketCatalog" class="catalog-grid">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
