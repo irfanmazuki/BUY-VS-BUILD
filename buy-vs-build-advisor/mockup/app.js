@@ -92,10 +92,42 @@ function showLoading() {
   const banner = document.getElementById("recommendationBanner");
   banner.classList.add("show");
   banner.innerHTML = `
-    <div style="display: flex; align-items: center; justify-content: center; padding: 40px;">
-      <div class="loading-spinner"></div>
-      <div style="color: #FFFFFF; font-size: 18px; font-weight: 500;">
-        Analyzing requirements<span class="loading-dots">...</span>
+    <div style="padding: 40px;">
+      <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+        <div class="loading-spinner"></div>
+        <div style="color: #FFFFFF; font-size: 18px; font-weight: 500;">
+          <span id="loadingText">Initializing analysis</span><span class="loading-dots">...</span>
+        </div>
+      </div>
+      
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+        <div id="progressText" class="progress-text">0%</div>
+      </div>
+      
+      <div id="processingSteps" class="processing-steps">
+        <div class="step-item" id="step1">
+          <div class="step-icon">⚡</div>
+          <div class="step-text">Parsing requirements</div>
+        </div>
+        <div class="step-item" id="step2">
+          <div class="step-icon">🔍</div>
+          <div class="step-text">Scanning existing solutions</div>
+        </div>
+        <div class="step-item" id="step3">
+          <div class="step-icon">📊</div>
+          <div class="step-text">Analyzing market options</div>
+        </div>
+        <div class="step-item" id="step4">
+          <div class="step-icon">💰</div>
+          <div class="step-text">Calculating TCO & risks</div>
+        </div>
+        <div class="step-item" id="step5">
+          <div class="step-icon">🎯</div>
+          <div class="step-text">Generating recommendation</div>
+        </div>
       </div>
     </div>
   `;
@@ -113,6 +145,9 @@ function showLoading() {
     const element = document.getElementById(id);
     if (element) element.style.display = "none";
   });
+
+  // Start progress animation
+  startProgressAnimation();
 }
 
 function displayResults() {
@@ -123,13 +158,8 @@ function displayResults() {
   displayComparison();
   displayTCOAnalysis();
 
-  // Switch to results tab
-  switchTab("results");
-
-  // Scroll to results
-  document
-    .getElementById("recommendationBanner")
-    .scrollIntoView({ behavior: "smooth", block: "start" });
+  // Don't switch tabs immediately - let progress animation complete first
+  // Tab switching will happen in startProgressAnimation when complete
 }
 
 function displayRecommendation() {
@@ -1031,4 +1061,81 @@ function createDummyAnalysis(requirementText, businessContext) {
 
   console.log("Dummy analysis created:", dummyAnalysis);
   return dummyAnalysis;
+}
+// Progress animation function
+function startProgressAnimation() {
+  const progressFill = document.getElementById("progressFill");
+  const progressText = document.getElementById("progressText");
+  const loadingText = document.getElementById("loadingText");
+
+  const steps = [
+    {
+      progress: 20,
+      text: "Parsing requirements",
+      stepId: "step1",
+      duration: 300,
+    },
+    {
+      progress: 40,
+      text: "Scanning existing solutions",
+      stepId: "step2",
+      duration: 300,
+    },
+    {
+      progress: 60,
+      text: "Analyzing market options",
+      stepId: "step3",
+      duration: 300,
+    },
+    {
+      progress: 80,
+      text: "Calculating TCO & risks",
+      stepId: "step4",
+      duration: 300,
+    },
+    {
+      progress: 100,
+      text: "Generating recommendation",
+      stepId: "step5",
+      duration: 3000,
+    },
+  ];
+
+  let currentStep = 0;
+
+  function animateStep() {
+    switchTab("results");
+    if (currentStep >= steps.length) {
+      // Animation complete - now switch to results tab and scroll
+      setTimeout(() => {
+        document
+          .getElementById("recommendationBanner")
+          .scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 10000);
+      return;
+    }
+
+    const step = steps[currentStep];
+
+    // Update loading text
+    loadingText.textContent = step.text;
+
+    // Highlight current step
+    document
+      .querySelectorAll(".step-item")
+      .forEach((item) => item.classList.remove("active"));
+    document.getElementById(step.stepId).classList.add("active");
+
+    // Animate progress bar
+    progressFill.style.width = step.progress + "%";
+    progressText.textContent = step.progress + "%";
+
+    currentStep++;
+
+    // Continue to next step
+    setTimeout(animateStep, step.duration);
+  }
+
+  // Start animation after a brief delay
+  setTimeout(animateStep, 200);
 }
