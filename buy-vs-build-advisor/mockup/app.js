@@ -79,13 +79,13 @@ function analyzeRequirements() {
   // Show loading state
   showLoading();
 
-  // Simulate analysis delay
+  // Simulate analysis delay - match the progress animation duration
   setTimeout(() => {
     // Use dummy analysis for demo
     currentAnalysis = createDummyAnalysis(requirementText, businessContext);
     console.log("Analysis completed:", currentAnalysis);
     displayResults();
-  }, 2000);
+  }, 20500);
 }
 
 function showLoading() {
@@ -1073,31 +1073,31 @@ function startProgressAnimation() {
       progress: 20,
       text: "Parsing requirements",
       stepId: "step1",
-      duration: 300,
+      duration: 4000,
     },
     {
       progress: 40,
       text: "Scanning existing solutions",
       stepId: "step2",
-      duration: 300,
+      duration: 4000,
     },
     {
       progress: 60,
       text: "Analyzing market options",
       stepId: "step3",
-      duration: 300,
+      duration: 4000,
     },
     {
       progress: 80,
       text: "Calculating TCO & risks",
       stepId: "step4",
-      duration: 300,
+      duration: 4000,
     },
     {
       progress: 100,
       text: "Generating recommendation",
       stepId: "step5",
-      duration: 3000,
+      duration: 4000,
     },
   ];
 

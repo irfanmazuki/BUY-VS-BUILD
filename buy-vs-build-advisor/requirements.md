@@ -202,3 +202,43 @@ This enhancement provides users with clear visibility into the analysis process,
 4. Smooth scroll to recommendation banner with full analysis results
 
 This ensures users see the complete processing experience before viewing results.
+
+## Extended Processing Duration (Updated)
+
+### Longer Processing Simulation
+
+- **Extended Step Duration** - Each processing step now takes 4 seconds (4000ms) instead of previous shorter durations
+- **Total Processing Time** - Complete analysis now takes ~20 seconds (5 steps × 4 seconds each)
+- **More Realistic Timing** - Mimics enterprise-level analysis processing time for complex Buy vs Build decisions
+- **Enhanced User Engagement** - Longer duration allows users to fully appreciate each processing stage
+
+### Updated Processing Timeline
+
+1. ⚡ **Parsing requirements** (0→20% in 4 seconds)
+2. 🔍 **Scanning existing solutions** (20→40% in 4 seconds)
+3. 📊 **Analyzing market options** (40→60% in 4 seconds)
+4. 💰 **Calculating TCO & risks** (60→80% in 4 seconds)
+5. 🎯 **Generating recommendation** (80→100% in 4 seconds)
+
+**Total Duration**: 20 seconds + 200ms initial delay + 200ms completion delay = ~20.4 seconds
+
+This extended timing provides a more realistic enterprise software experience where complex analysis takes meaningful processing time, making the comprehensive results feel more valuable and trustworthy.
+
+## Progress Animation Timing Fix (Fixed)
+
+### Synchronized Processing Duration
+
+- **Fixed Timeout Mismatch** - Main analysis timeout now matches progress animation duration (20.5 seconds)
+- **Complete Step Iteration** - All 5 processing steps now display properly without being interrupted
+- **Proper Sequencing** - Progress animation completes fully before results are displayed
+- **Synchronized Experience** - Analysis completion and progress bar completion happen simultaneously
+
+**Previous Issue**: Main timeout (2 seconds) was shorter than progress animation (20 seconds), causing steps to be skipped and results to show prematurely.
+
+**Fixed Timing**:
+
+- Progress animation: 5 steps × 4 seconds = 20 seconds + delays = ~20.4 seconds
+- Main analysis timeout: 20.5 seconds (slightly longer to ensure progress completes first)
+- Result: All steps display properly and results appear after progress reaches 100%
+
+This ensures users see the complete 5-step processing experience before viewing analysis results.
