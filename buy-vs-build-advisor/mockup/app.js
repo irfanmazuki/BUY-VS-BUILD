@@ -679,55 +679,101 @@ function displayTCOAnalysis() {
       }
     : null;
 
+  // Create TCO graph data
+  const tcoOptions = [];
+  if (reuseTCO) {
+    tcoOptions.push({
+      name: "Reuse Existing",
+      total: reuseTCO.total5yr,
+      year1: reuseTCO.year1,
+      ongoing: reuseTCO.ongoing,
+      type: "reuse",
+      benefit: "Fastest ROI",
+    });
+  }
+  if (buyTCO) {
+    tcoOptions.push({
+      name: "Buy Market Solution",
+      total: buyTCO.total5yr,
+      year1: buyTCO.year1,
+      ongoing: buyTCO.ongoing,
+      type: "buy",
+      benefit: "Vendor Support",
+    });
+  }
+  if (buildTCO) {
+    tcoOptions.push({
+      name: "Build Custom",
+      total: buildTCO.total5yr,
+      year1: buildTCO.year1,
+      ongoing: buildTCO.ongoing,
+      type: "build",
+      benefit: "Full Control",
+    });
+  }
+
+  // Find max value for scaling
+  const maxTotal = Math.max(...tcoOptions.map((opt) => opt.total));
+
   content.innerHTML = `
-    <div class="tco-chart">
-      ${
-        reuseTCO
-          ? `
-        <div class="tco-option reuse">
-          <div class="tco-title">Reuse Existing</div>
-          <div class="tco-amount">RM${Math.round(reuseTCO.total5yr / 1000)}k</div>
-          <div class="tco-breakdown">
-            Year 1: RM${Math.round(reuseTCO.year1 / 1000)}k<br>
-            Years 2-5: RM${Math.round(reuseTCO.ongoing / 1000)}k/year<br>
-            <strong>Fastest ROI</strong>
-          </div>
-        </div>
-      `
-          : ""
-      }
+    <div class="tco-graph-container">
+      <h4 style="font-weight: 700; margin-bottom: 20px; text-align: center;">5-Year Total Cost Comparison</h4>
       
-      ${
-        buyTCO
-          ? `
-        <div class="tco-option buy">
-          <div class="tco-title">Buy Market Solution</div>
-          <div class="tco-amount">RM${Math.round(buyTCO.total5yr / 1000)}k</div>
-          <div class="tco-breakdown">
-            Year 1: RM${Math.round(buyTCO.year1 / 1000)}k<br>
-            Years 2-5: RM${Math.round(buyTCO.ongoing / 1000)}k/year<br>
-            <strong>Vendor Support</strong>
+      <div class="tco-bar-chart">
+        ${tcoOptions
+          .map((option) => {
+            const percentage = (option.total / maxTotal) * 100;
+            const savings =
+              option.total === Math.min(...tcoOptions.map((opt) => opt.total))
+                ? 0
+                : option.total -
+                  Math.min(...tcoOptions.map((opt) => opt.total));
+
+            return `
+            <div class="tco-bar-item">
+              <div class="tco-bar-header">
+                <div class="tco-bar-title">${option.name}</div>
+                <div class="tco-bar-amount">RM${Math.round(option.total / 1000)}k</div>
+                ${savings > 0 ? `<div class="tco-savings">+RM${Math.round(savings / 1000)}k vs lowest</div>` : '<div class="tco-best">Best Value</div>'}
+              </div>
+              
+              <div class="tco-bar-container">
+                <div class="tco-bar ${option.type}" style="width: ${percentage}%">
+                  <div class="tco-bar-fill"></div>
+                </div>
+                <div class="tco-percentage">${Math.round(percentage)}%</div>
+              </div>
+              
+              <div class="tco-breakdown-inline">
+                <span class="year1-cost">Year 1: RM${Math.round(option.year1 / 1000)}k</span>
+                <span class="ongoing-cost">Years 2-5: RM${Math.round(option.ongoing / 1000)}k/year</span>
+                <span class="benefit-tag">${option.benefit}</span>
+              </div>
+            </div>
+          `;
+          })
+          .join("")}
+      </div>
+    </div>
+    
+    <div class="tco-summary-cards">
+      ${tcoOptions
+        .map(
+          (option) => `
+        <div class="tco-card ${option.type}">
+          <div class="tco-card-header">
+            <div class="tco-card-title">${option.name}</div>
+            <div class="tco-card-amount">RM${Math.round(option.total / 1000)}k</div>
+          </div>
+          <div class="tco-card-breakdown">
+            Year 1: RM${Math.round(option.year1 / 1000)}k<br>
+            Years 2-5: RM${Math.round(option.ongoing / 1000)}k/year<br>
+            <strong>${option.benefit}</strong>
           </div>
         </div>
-      `
-          : ""
-      }
-      
-      ${
-        buildTCO
-          ? `
-        <div class="tco-option build">
-          <div class="tco-title">Build Custom</div>
-          <div class="tco-amount">RM${Math.round(buildTCO.total5yr / 1000)}k</div>
-          <div class="tco-breakdown">
-            Year 1: RM${Math.round(buildTCO.year1 / 1000)}k<br>
-            Years 2-5: RM${Math.round(buildTCO.ongoing / 1000)}k/year<br>
-            <strong>Full Control</strong>
-          </div>
-        </div>
-      `
-          : ""
-      }
+      `,
+        )
+        .join("")}
     </div>
     
     <div style="margin-top: 24px; padding: 16px; background: var(--border-light); border-radius: 8px;">

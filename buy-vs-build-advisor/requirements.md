@@ -123,9 +123,13 @@ System instantly analyzes all inputs and provides recommendation: Buy / Build / 
 ### Total Cost of Ownership (5-Year Analysis)
 
 - **Comprehensive TCO Modeling** - Year 1 vs ongoing costs for all options
+- **Visual ROI Comparison** - Interactive bar chart showing 5-year total costs with percentage scaling
+- **Cost Breakdown Visualization** - Clear display of Year 1 implementation costs vs ongoing annual costs
+- **Savings Analysis** - Automatic calculation and display of cost differences between options
 - **Hidden Cost Integration** - Implementation, training, maintenance, integration costs
 - **Budget Fit Analysis** - Clear comparison against P4R budget
 - **ROI Timeline** - Fastest payback and long-term value analysis
+- **Animated Graph** - Smooth bar chart animations for engaging data presentation
 
 These enhanced analysis features provide comprehensive insights based on market research and existing solution evaluation, enabling more informed Buy vs Build vs Reuse decisions.
 
@@ -261,3 +265,26 @@ This ensures users see the complete 5-step processing experience before viewing 
 - **Budget Fit Analysis** - Within/Over budget calculations based on MYR amounts
 
 This localization makes the prototype more relevant for PETRONAS Malaysia operations and aligns with local financial planning processes.
+
+## Visual TCO Graph Enhancement (Added)
+
+### Interactive 5-Year Cost Comparison Chart
+
+- **Horizontal Bar Chart** - Visual representation of total 5-year costs for all three options (Reuse/Buy/Build)
+- **Percentage Scaling** - Bars scaled relative to highest cost option for easy visual comparison
+- **Cost Savings Indicators** - Automatic calculation and display of savings vs lowest cost option
+- **Animated Visualization** - Smooth 1.5-second fill animation for engaging data presentation
+- **Color-Coded Options** - PETRONAS brand colors distinguish each option (Emerald/Purple/Blue)
+- **Detailed Breakdown** - Year 1 vs ongoing costs displayed inline with each bar
+- **Best Value Highlighting** - Lowest cost option marked with "Best Value" badge
+- **Responsive Design** - Mobile-friendly layout with stacked elements on smaller screens
+
+### Enhanced ROI Analysis
+
+- **Visual Cost Comparison** - Immediate visual understanding of cost differences
+- **Percentage Indicators** - Each option shows percentage relative to highest cost
+- **Savings Calculation** - Clear display of additional cost vs most economical option
+- **Benefit Tags** - Key advantages highlighted for each option (Fastest ROI, Vendor Support, Full Control)
+- **Summary Cards** - Detailed breakdown cards below the graph for comprehensive analysis
+
+This visual enhancement makes TCO analysis more intuitive and enables faster decision-making by providing immediate visual feedback on cost implications of each Buy vs Build vs Reuse option.
