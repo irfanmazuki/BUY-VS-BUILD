@@ -140,36 +140,85 @@
             </div>
           </div>
 
-          <!-- Functional Requirements Section -->
-          <div>
-            <h3
-              style="
-                font-size: 18px;
-                font-weight: 700;
-                color: var(--text);
-                margin-bottom: 16px;
-                padding-bottom: 8px;
-                border-bottom: 2px solid var(--p-emerald);
-              "
-            >
-              Functional Requirements
-            </h3>
+          <!-- Requirements Section -->
+          <div class="requirements-container">
+            <!-- Functional Requirements -->
+            <div class="requirements-section">
+              <div class="requirements-header">
+                <h3>Functional Requirements</h3>
+                <button
+                  type="button"
+                  class="add-requirement-btn"
+                  id="addFunctionalBtn"
+                >
+                  <span class="plus-icon">+</span>
+                  Add Requirement
+                </button>
+              </div>
+              <p class="requirements-description">
+                What the system must do - features, capabilities, and business
+                functions
+              </p>
 
-            <label
-              for="requirements"
-              style="
-                display: block;
-                font-weight: 600;
-                margin-bottom: 12px;
-                color: var(--text);
-              "
-            >
-              List your required features and capabilities (one per line)
-            </label>
-            <textarea
-              id="requirements"
-              placeholder="Enter your requirements, one per line. For example:&#10;- Asset tracking and maintenance scheduling&#10;- Mobile access for field workers&#10;- Work order management&#10;- Reporting and analytics"
-            ></textarea>
+              <div class="requirement-input-group">
+                <input
+                  type="text"
+                  id="functionalInput"
+                  class="requirement-input"
+                  placeholder="e.g., Asset tracking and maintenance scheduling"
+                />
+                <button
+                  type="button"
+                  class="add-btn"
+                  onclick="addRequirement('functional')"
+                >
+                  +
+                </button>
+              </div>
+
+              <ul id="functionalRequirements" class="requirements-list">
+                <!-- Functional requirements will be added here -->
+              </ul>
+            </div>
+
+            <!-- Non-Functional Requirements -->
+            <div class="requirements-section">
+              <div class="requirements-header">
+                <h3>Non-Functional Requirements</h3>
+                <button
+                  type="button"
+                  class="add-requirement-btn"
+                  id="addNonFunctionalBtn"
+                >
+                  <span class="plus-icon">+</span>
+                  Add Requirement
+                </button>
+              </div>
+              <p class="requirements-description">
+                How the system should perform - performance, security, usability
+                constraints
+              </p>
+
+              <div class="requirement-input-group">
+                <input
+                  type="text"
+                  id="nonFunctionalInput"
+                  class="requirement-input"
+                  placeholder="e.g., Support 500+ concurrent users"
+                />
+                <button
+                  type="button"
+                  class="add-btn"
+                  onclick="addRequirement('nonFunctional')"
+                >
+                  +
+                </button>
+              </div>
+
+              <ul id="nonFunctionalRequirements" class="requirements-list">
+                <!-- Non-functional requirements will be added here -->
+              </ul>
+            </div>
           </div>
 
           <div class="button-group">

@@ -25,7 +25,14 @@ Accelerate Buy vs Build decisions from 10-20 days to 2 days by providing:
 
 Business users can independently screen solutions by providing:
 
-- **Functional Requirements** - List of required features/capabilities (one per line)
+- **Functional Requirements** - Interactive list with + button to add individual requirements
+  - What the system must do - features, capabilities, and business functions
+  - Examples: Asset tracking, Mobile access, Work order management, Reporting & analytics
+  - Individual requirement items with remove functionality
+- **Non-Functional Requirements** - Separate interactive list for performance and quality constraints
+  - How the system should perform - performance, security, usability constraints
+  - Examples: Support 500+ users, 99.9% uptime, Response time under 2 seconds
+  - Individual requirement items with remove functionality
 - **P4R Budget** - Approved budget for the solution (in MYR)
 - **Business Unit (BU)** - Which BU is requesting the solution (e.g., Upstream, Downstream, Gas & New Energy)
 - **Operating Unit (OPU)** - Specific OPU within the BU (e.g., Malaysia Operations, International Operations)
@@ -288,3 +295,42 @@ This localization makes the prototype more relevant for PETRONAS Malaysia operat
 - **Summary Cards** - Detailed breakdown cards below the graph for comprehensive analysis
 
 This visual enhancement makes TCO analysis more intuitive and enables faster decision-making by providing immediate visual feedback on cost implications of each Buy vs Build vs Reuse option.
+
+## Interactive Requirements Management (Added)
+
+### Separated Functional vs Non-Functional Requirements
+
+- **Dual Requirements Sections** - Side-by-side layout separating functional and non-functional requirements
+- **Clear Categorization** - Functional (what the system does) vs Non-functional (how it performs)
+- **Color-Coded Interface** - Emerald green for functional, purple for non-functional requirements
+- **Descriptive Guidance** - Clear explanations of what belongs in each category
+
+### Interactive + Button Interface
+
+- **Individual Add Buttons** - Separate + buttons for each requirement type
+- **Input Field Integration** - Dedicated input fields for each requirement category
+- **Enter Key Support** - Press Enter to quickly add requirements
+- **Focus Management** - Clicking + button focuses the input field
+
+### Dynamic Requirements Lists
+
+- **Live List Updates** - Requirements appear immediately as interactive list items
+- **Remove Functionality** - × button on each requirement for easy removal
+- **Visual Feedback** - Hover effects and smooth animations for better UX
+- **Empty State Handling** - Helpful messages when no requirements are added
+- **Scrollable Lists** - Max height with scroll for managing many requirements
+
+### Enhanced Sample Data
+
+- **Realistic Examples** - Sample functional requirements (Asset tracking, Mobile access, etc.)
+- **Non-Functional Samples** - Performance constraints (500+ users, 99.9% uptime, etc.)
+- **Categorized Loading** - Sample data properly separated into functional vs non-functional
+- **Professional Examples** - Enterprise-grade requirement examples for demonstration
+
+### Responsive Design
+
+- **Mobile-Friendly** - Stacked layout on smaller screens
+- **Touch-Optimized** - Larger buttons and touch targets for mobile devices
+- **Flexible Grid** - Adapts to different screen sizes while maintaining usability
+
+This enhancement makes requirements gathering more structured, user-friendly, and aligned with standard business analysis practices by clearly separating functional capabilities from performance and quality constraints.

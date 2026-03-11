@@ -1,6 +1,8 @@
 // Buy vs Build Advisor - Main Application Logic
 
 let currentAnalysis = null;
+let functionalRequirements = [];
+let nonFunctionalRequirements = [];
 
 // Initialize app
 document.addEventListener("DOMContentLoaded", () => {
@@ -21,6 +23,30 @@ function setupEventListeners() {
   document.querySelectorAll(".tab").forEach((tab) => {
     tab.addEventListener("click", () => switchTab(tab.dataset.tab));
   });
+
+  // Requirements input handlers
+  document
+    .getElementById("functionalInput")
+    .addEventListener("keypress", (e) => {
+      if (e.key === "Enter") addRequirement("functional");
+    });
+
+  document
+    .getElementById("nonFunctionalInput")
+    .addEventListener("keypress", (e) => {
+      if (e.key === "Enter") addRequirement("nonFunctional");
+    });
+
+  // Add requirement button handlers
+  document.getElementById("addFunctionalBtn").addEventListener("click", () => {
+    document.getElementById("functionalInput").focus();
+  });
+
+  document
+    .getElementById("addNonFunctionalBtn")
+    .addEventListener("click", () => {
+      document.getElementById("nonFunctionalInput").focus();
+    });
 }
 
 function switchTab(tabName) {
@@ -47,13 +73,113 @@ function loadSampleRequirements() {
     "Field Engineers, Maintenance Technicians, Operations Managers";
   document.getElementById("geoLocation").value = "Malaysia";
 
-  // Load sample requirements
-  const textarea = document.getElementById("requirements");
-  textarea.value = mockData.sampleRequirements.join("\n");
+  // Clear existing requirements
+  functionalRequirements = [];
+  nonFunctionalRequirements = [];
+
+  // Load sample functional requirements
+  const sampleFunctional = [
+    "Asset tracking and maintenance scheduling",
+    "Mobile access for field workers",
+    "Work order management",
+    "Reporting and analytics",
+    "Integration with existing SAP systems",
+    "Predictive maintenance capabilities",
+  ];
+
+  // Load sample non-functional requirements
+  const sampleNonFunctional = [
+    "Support 500+ concurrent users",
+    "99.9% uptime availability",
+    "Response time under 2 seconds",
+    "Mobile-responsive design",
+    "Role-based access control",
+    "Data encryption at rest and in transit",
+  ];
+
+  sampleFunctional.forEach((req) => {
+    functionalRequirements.push(req);
+  });
+
+  sampleNonFunctional.forEach((req) => {
+    nonFunctionalRequirements.push(req);
+  });
+
+  renderRequirements();
+}
+
+function addRequirement(type) {
+  const inputId =
+    type === "functional" ? "functionalInput" : "nonFunctionalInput";
+  const input = document.getElementById(inputId);
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  if (type === "functional") {
+    functionalRequirements.push(text);
+  } else {
+    nonFunctionalRequirements.push(text);
+  }
+
+  input.value = "";
+  renderRequirements();
+}
+
+function removeRequirement(type, index) {
+  if (type === "functional") {
+    functionalRequirements.splice(index, 1);
+  } else {
+    nonFunctionalRequirements.splice(index, 1);
+  }
+  renderRequirements();
+}
+
+function renderRequirements() {
+  renderRequirementsList(
+    "functionalRequirements",
+    functionalRequirements,
+    "functional",
+  );
+  renderRequirementsList(
+    "nonFunctionalRequirements",
+    nonFunctionalRequirements,
+    "nonFunctional",
+  );
+}
+
+function renderRequirementsList(containerId, requirements, type) {
+  const container = document.getElementById(containerId);
+
+  if (requirements.length === 0) {
+    container.innerHTML = `
+      <li class="requirements-empty">
+        No ${type} requirements added yet. Click + to add some.
+      </li>
+    `;
+    return;
+  }
+
+  container.innerHTML = requirements
+    .map(
+      (req, index) => `
+    <li class="requirement-item">
+      <span class="requirement-text">${req}</span>
+      <button class="remove-btn" onclick="removeRequirement('${type}', ${index})" title="Remove requirement">
+        ×
+      </button>
+    </li>
+  `,
+    )
+    .join("");
+}
+
+function getAllRequirements() {
+  return [...functionalRequirements, ...nonFunctionalRequirements].join("\n");
 }
 
 function analyzeRequirements() {
-  const requirementText = document.getElementById("requirements").value.trim();
+  const requirementText = getAllRequirements();
 
   // Collect business context
   const businessContext = {
@@ -67,7 +193,7 @@ function analyzeRequirements() {
   };
 
   if (!requirementText) {
-    alert("Please enter your requirements first.");
+    alert("Please add some functional or non-functional requirements first.");
     return;
   }
 
