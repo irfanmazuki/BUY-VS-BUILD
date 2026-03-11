@@ -403,3 +403,83 @@ This enhancement makes requirements gathering more structured, user-friendly, an
 - **Professional Workflow** - Enterprise-grade approval process simulation
 
 This approval workflow transforms the Buy vs Build Advisor from an analysis tool into a complete request management system, enabling official business processes and formal approval tracking for implementation decisions.
+
+## Request Repository Tab (Added)
+
+### Centralized Request Management Dashboard
+
+- **New Repository Tab** - Dedicated tab for viewing all submitted Buy vs Build analysis requests
+- **Comprehensive Request Tracking** - Complete visibility of all requests across the organization
+- **Multi-Status Monitoring** - Track Manager Approval, Senior Manager Approval, and Business Acknowledgement status
+- **Real-Time Status Updates** - Live updates as requests progress through approval workflow
+
+### Advanced Filtering & Search
+
+- **Status-Based Filtering** - Filter by approval status:
+  - All Statuses
+  - Pending Approval
+  - Manager Approved
+  - Senior Manager Approved
+  - Fully Approved
+  - Rejected
+- **Business Unit Filtering** - Filter requests by specific BU (Corporate, Downstream, Gas & Maritime, MPM, PE&T, Upstream)
+- **Refresh Functionality** - Manual refresh to update request status and data
+
+### Repository Statistics Dashboard
+
+- **Key Metrics Display**:
+  - Total Requests submitted
+  - Pending Requests awaiting approval
+  - Approved Requests ready for implementation
+- **Visual Stat Cards** - Color-coded statistics with PETRONAS brand colors
+- **Real-Time Updates** - Statistics update automatically as requests change status
+
+### Comprehensive Request Table
+
+- **Detailed Request Information**:
+  - Request ID (unique identifier)
+  - Request Title
+  - Business Unit (with color-coded badges)
+  - Requestor Name and Email
+  - Submission Date and Time
+  - Manager Approval Status
+  - Senior Manager Approval Status
+  - Business Acknowledgement Status
+  - Overall Request Status
+  - Action Buttons (View/Edit)
+
+### Status Tracking System
+
+- **Visual Status Indicators**:
+  - 🟡 Pending (Gold)
+  - 🟢 Approved (Green)
+  - 🔴 Rejected (Red)
+  - ⚪ Not Started (Gray)
+- **Overall Status Categories**:
+  - Pending Approval
+  - Fully Approved
+  - Rejected
+
+### Sample Data & Demo
+
+- **Pre-loaded Sample Requests** - 3 realistic sample requests showing different approval stages
+- **Diverse Business Units** - Examples from Upstream, Gas & Maritime, and Corporate
+- **Realistic Timestamps** - Proper date/time formatting for submission tracking
+- **Complete Request Data** - Full request details including requirements and business justification
+
+### Interactive Features
+
+- **View Request Details** - Click to see complete request information
+- **Edit Request** - Modify request details (prototype functionality)
+- **Empty State Handling** - Helpful message when no requests match filters
+- **Responsive Design** - Mobile-friendly table with horizontal scrolling
+- **Sortable Columns** - Easy data organization and review
+
+### Integration with Approval Workflow
+
+- **Automatic Repository Updates** - New requests automatically appear in repository
+- **Live Status Synchronization** - Status changes in approval workflow update repository in real-time
+- **Complete Audit Trail** - Full history of request progression through approval stages
+- **Cross-Tab Consistency** - Repository stays synchronized with approval workflow status
+
+This Request Repository tab transforms the Buy vs Build Advisor into a complete enterprise request management system, providing organizational visibility and tracking capabilities essential for governance and compliance in large organizations like PETRONAS.

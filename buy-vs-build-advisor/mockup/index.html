@@ -28,6 +28,7 @@
           Analyze Requirements
         </button>
         <button class="tab" data-tab="results">Results & Comparison</button>
+        <button class="tab" data-tab="repository">Request Repository</button>
         <button class="tab" data-tab="existing">Existing Solutions</button>
         <button class="tab" data-tab="market">Market Solutions</button>
       </div>
@@ -509,6 +510,93 @@
             Enter your requirements in the "Analyze Requirements" tab to see
             comprehensive analysis here.
           </p>
+        </div>
+      </div>
+
+      <!-- Tab: Request Repository -->
+      <div id="repository-tab" class="tab-content">
+        <div class="section-header">
+          <h2>Request Repository</h2>
+          <p>
+            Track all Buy vs Build analysis requests and their approval status
+            across the organization.
+          </p>
+        </div>
+
+        <!-- Repository Controls -->
+        <div class="repository-controls">
+          <div class="filter-controls">
+            <select id="statusFilter" class="filter-select">
+              <option value="all">All Statuses</option>
+              <option value="pending">Pending Approval</option>
+              <option value="manager-approved">Manager Approved</option>
+              <option value="senior-approved">Senior Manager Approved</option>
+              <option value="fully-approved">Fully Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+
+            <select id="buFilter" class="filter-select">
+              <option value="all">All Business Units</option>
+              <option value="Corporate">Corporate</option>
+              <option value="Downstream">Downstream</option>
+              <option value="Gas & Maritime">Gas & Maritime</option>
+              <option value="MPM">MPM</option>
+              <option value="PE&T">PE&T</option>
+              <option value="Upstream">Upstream</option>
+            </select>
+
+            <button id="refreshRepositoryBtn" class="btn btn-secondary">
+              🔄 Refresh
+            </button>
+          </div>
+
+          <div class="repository-stats">
+            <div class="stat-card">
+              <div class="stat-number" id="totalRequests">0</div>
+              <div class="stat-label">Total Requests</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="pendingRequests">0</div>
+              <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="approvedRequests">0</div>
+              <div class="stat-label">Approved</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Requests Table -->
+        <div class="requests-table-container">
+          <table class="requests-table">
+            <thead>
+              <tr>
+                <th>Request ID</th>
+                <th>Title</th>
+                <th>Business Unit</th>
+                <th>Requestor</th>
+                <th>Submitted</th>
+                <th>Manager</th>
+                <th>Senior Manager</th>
+                <th>Business</th>
+                <th>Overall Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="requestsTableBody">
+              <!-- Requests will be populated here -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyRepository" class="empty-state" style="display: none">
+          <div class="empty-icon">📋</div>
+          <h3>No Requests Found</h3>
+          <p>No Buy vs Build analysis requests have been submitted yet.</p>
+          <button class="btn btn-primary" onclick="switchTab('analyze')">
+            Create First Request
+          </button>
         </div>
       </div>
 

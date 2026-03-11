@@ -3,6 +3,7 @@
 let currentAnalysis = null;
 let functionalRequirements = [];
 let nonFunctionalRequirements = [];
+let requestRepository = []; // Store all submitted requests
 
 // Initialize app
 document.addEventListener("DOMContentLoaded", () => {
@@ -61,6 +62,17 @@ function setupEventListeners() {
   document
     .getElementById("newRequestBtn")
     .addEventListener("click", resetWorkflow);
+
+  // Repository handlers
+  document
+    .getElementById("refreshRepositoryBtn")
+    .addEventListener("click", refreshRepository);
+  document
+    .getElementById("statusFilter")
+    .addEventListener("change", filterRequests);
+  document
+    .getElementById("buFilter")
+    .addEventListener("change", filterRequests);
 }
 
 function switchTab(tabName) {
@@ -1380,6 +1392,30 @@ function submitApprovalRequest() {
   const requestId = `REQ-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 1000)).padStart(3, "0")}`;
   document.getElementById("requestId").textContent = requestId;
 
+  // Create request object and save to repository
+  const request = {
+    id: requestId,
+    title: document.getElementById("requestTitle").value,
+    businessUnit: document.getElementById("businessUnit").value,
+    operatingUnit: document.getElementById("operatingUnit").value,
+    requestor: document.getElementById("requestorName").value,
+    requestorEmail: document.getElementById("requestorEmail").value,
+    managerEmail: document.getElementById("managerEmail").value,
+    seniorManagerEmail: document.getElementById("seniorManagerEmail").value,
+    businessJustification: document.getElementById("businessJustification")
+      .value,
+    submittedDate: new Date(),
+    managerStatus: "pending",
+    seniorManagerStatus: "not-started",
+    businessAckStatus: "not-started",
+    overallStatus: "pending",
+    functionalRequirements: [...functionalRequirements],
+    nonFunctionalRequirements: [...nonFunctionalRequirements],
+    analysis: currentAnalysis,
+  };
+
+  requestRepository.push(request);
+
   // Update submitter info
   document.getElementById("submittedBy").textContent =
     document.getElementById("requestorName").value;
@@ -1398,9 +1434,12 @@ function submitApprovalRequest() {
   document.getElementById("workflowStatus").style.display = "block";
   document.querySelector(".workflow-form").style.display = "none";
 
+  // Refresh repository display
+  refreshRepository();
+
   // Simulate workflow progression after a delay
   setTimeout(() => {
-    simulateApprovalProgress();
+    simulateApprovalProgress(requestId);
   }, 3000);
 }
 
@@ -1528,3 +1567,334 @@ function showApprovalButton() {
   document.getElementById("submitForApprovalBtn").style.display =
     "inline-block";
 }
+// Request Repository Functions
+function refreshRepository() {
+  renderRequestsTable();
+  updateRepositoryStats();
+}
+
+function renderRequestsTable() {
+  const tbody = document.getElementById("requestsTableBody");
+  const statusFilter = document.getElementById("statusFilter").value;
+  const buFilter = document.getElementById("buFilter").value;
+
+  // Filter requests
+  let filteredRequests = requestRepository;
+
+  if (statusFilter !== "all") {
+    filteredRequests = filteredRequests.filter((req) => {
+      switch (statusFilter) {
+        case "pending":
+          return req.overallStatus === "pending";
+        case "manager-approved":
+          return (
+            req.managerStatus === "approved" &&
+            req.seniorManagerStatus !== "approved"
+          );
+        case "senior-approved":
+          return (
+            req.seniorManagerStatus === "approved" &&
+            req.businessAckStatus !== "approved"
+          );
+        case "fully-approved":
+          return req.businessAckStatus === "approved";
+        case "rejected":
+          return req.overallStatus === "rejected";
+        default:
+          return true;
+      }
+    });
+  }
+
+  if (buFilter !== "all") {
+    filteredRequests = filteredRequests.filter(
+      (req) => req.businessUnit === buFilter,
+    );
+  }
+
+  // Show empty state if no requests
+  if (filteredRequests.length === 0) {
+    tbody.innerHTML = "";
+    document.getElementById("emptyRepository").style.display = "block";
+    document.querySelector(".requests-table-container").style.display = "none";
+    return;
+  }
+
+  document.getElementById("emptyRepository").style.display = "none";
+  document.querySelector(".requests-table-container").style.display = "block";
+
+  // Render table rows
+  tbody.innerHTML = filteredRequests
+    .map(
+      (request) => `
+    <tr>
+      <td><span class="request-id">${request.id}</span></td>
+      <td><div class="request-title" title="${request.title}">${request.title}</div></td>
+      <td><span class="bu-badge">${request.businessUnit}</span></td>
+      <td>
+        <div class="requestor-info">${request.requestor}</div>
+        <div style="font-size: 11px; color: var(--text-muted);">${request.requestorEmail}</div>
+      </td>
+      <td><div class="submitted-date">${formatDate(request.submittedDate)}</div></td>
+      <td><span class="status-badge ${getStatusClass(request.managerStatus)}">${formatStatus(request.managerStatus)}</span></td>
+      <td><span class="status-badge ${getStatusClass(request.seniorManagerStatus)}">${formatStatus(request.seniorManagerStatus)}</span></td>
+      <td><span class="status-badge ${getStatusClass(request.businessAckStatus)}">${formatStatus(request.businessAckStatus)}</span></td>
+      <td><span class="overall-status ${request.overallStatus}">${formatOverallStatus(request.overallStatus)}</span></td>
+      <td>
+        <div class="action-buttons">
+          <button class="action-btn view" onclick="viewRequest('${request.id}')" title="View Details">👁️</button>
+          <button class="action-btn edit" onclick="editRequest('${request.id}')" title="Edit Request">✏️</button>
+        </div>
+      </td>
+    </tr>
+  `,
+    )
+    .join("");
+}
+
+function updateRepositoryStats() {
+  const total = requestRepository.length;
+  const pending = requestRepository.filter(
+    (req) => req.overallStatus === "pending",
+  ).length;
+  const approved = requestRepository.filter(
+    (req) => req.businessAckStatus === "approved",
+  ).length;
+
+  document.getElementById("totalRequests").textContent = total;
+  document.getElementById("pendingRequests").textContent = pending;
+  document.getElementById("approvedRequests").textContent = approved;
+}
+
+function filterRequests() {
+  renderRequestsTable();
+}
+
+function formatDate(date) {
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+function getStatusClass(status) {
+  switch (status) {
+    case "pending":
+      return "status-pending";
+    case "approved":
+      return "status-approved";
+    case "rejected":
+      return "status-rejected";
+    default:
+      return "status-not-started";
+  }
+}
+
+function formatStatus(status) {
+  switch (status) {
+    case "pending":
+      return "Pending";
+    case "approved":
+      return "Approved";
+    case "rejected":
+      return "Rejected";
+    case "not-started":
+      return "Not Started";
+    default:
+      return "Unknown";
+  }
+}
+
+function formatOverallStatus(status) {
+  switch (status) {
+    case "pending":
+      return "Pending Approval";
+    case "approved":
+      return "Fully Approved";
+    case "rejected":
+      return "Rejected";
+    default:
+      return "Unknown";
+  }
+}
+
+function viewRequest(requestId) {
+  const request = requestRepository.find((req) => req.id === requestId);
+  if (!request) return;
+
+  alert(
+    `Request Details:\n\nID: ${request.id}\nTitle: ${request.title}\nBU: ${request.businessUnit}\nRequestor: ${request.requestor}\nStatus: ${formatOverallStatus(request.overallStatus)}\n\nFunctional Requirements: ${request.functionalRequirements.length}\nNon-Functional Requirements: ${request.nonFunctionalRequirements.length}`,
+  );
+}
+
+function editRequest(requestId) {
+  alert(
+    `Edit functionality would open a form to modify request ${requestId}. This is a prototype feature.`,
+  );
+}
+
+// Update simulateApprovalProgress to work with repository
+function simulateApprovalProgress(requestId) {
+  const request = requestRepository.find((req) => req.id === requestId);
+  if (!request) return;
+
+  // Simulate manager approval
+  const managerStep = document.getElementById("step-manager");
+  managerStep.classList.remove("pending");
+  managerStep.classList.add("approved");
+  managerStep.querySelector(".timeline-icon").textContent = "✓";
+  managerStep.querySelector(".timeline-date").textContent =
+    "March 12, 2026 - 3:45 PM";
+
+  // Update request in repository
+  request.managerStatus = "approved";
+
+  document.getElementById("currentStatus").textContent =
+    "Pending Senior Manager Approval";
+
+  // Move to senior manager step
+  const seniorStep = document.getElementById("step-senior");
+  seniorStep.classList.add("pending");
+
+  // Refresh repository display
+  refreshRepository();
+
+  // Simulate senior manager approval after another delay
+  setTimeout(() => {
+    seniorStep.classList.remove("pending");
+    seniorStep.classList.add("approved");
+    seniorStep.querySelector(".timeline-icon").textContent = "✓";
+    seniorStep.querySelector(".timeline-date").textContent =
+      "March 12, 2026 - 4:20 PM";
+
+    // Update request in repository
+    request.seniorManagerStatus = "approved";
+
+    document.getElementById("currentStatus").textContent =
+      "Pending Business Acknowledgement";
+
+    // Move to business acknowledgement
+    const businessStep = document.getElementById("step-business");
+    businessStep.classList.add("pending");
+
+    // Refresh repository display
+    refreshRepository();
+
+    // Final approval
+    setTimeout(() => {
+      businessStep.classList.remove("pending");
+      businessStep.classList.add("approved");
+      businessStep.querySelector(".timeline-icon").textContent = "✓";
+      businessStep.querySelector(".timeline-date").textContent =
+        "March 13, 2026 - 9:15 AM";
+
+      // Update request in repository
+      request.businessAckStatus = "approved";
+      request.overallStatus = "approved";
+
+      document.getElementById("currentStatus").textContent =
+        "Approved - Ready for Implementation";
+      document.getElementById("currentStatus").style.color = "var(--p-emerald)";
+
+      // Refresh repository display
+      refreshRepository();
+
+      // Show success message
+      showApprovalSuccess();
+    }, 4000);
+  }, 5000);
+}
+
+// Initialize repository with sample data
+function initializeSampleRepository() {
+  const sampleRequests = [
+    {
+      id: "REQ-2024-001",
+      title: "Upstream Asset Management System Analysis",
+      businessUnit: "Upstream",
+      operatingUnit: "Malaysia Operations",
+      requestor: "Ahmad Rahman",
+      requestorEmail: "ahmad.rahman@petronas.com",
+      managerEmail: "sarah.lim@petronas.com",
+      seniorManagerEmail: "david.wong@petronas.com",
+      businessJustification:
+        "Need comprehensive asset tracking system for offshore operations to improve maintenance efficiency and reduce downtime.",
+      submittedDate: new Date("2024-03-10T09:30:00"),
+      managerStatus: "approved",
+      seniorManagerStatus: "approved",
+      businessAckStatus: "pending",
+      overallStatus: "pending",
+      functionalRequirements: [
+        "Asset tracking",
+        "Maintenance scheduling",
+        "Mobile access",
+      ],
+      nonFunctionalRequirements: ["Support 200+ users", "99.5% uptime"],
+      analysis: null,
+    },
+    {
+      id: "REQ-2024-002",
+      title: "Gas & Maritime CRM Solution Evaluation",
+      businessUnit: "Gas & Maritime",
+      operatingUnit: "Commercial Operations",
+      requestor: "Lisa Chen",
+      requestorEmail: "lisa.chen@petronas.com",
+      managerEmail: "michael.tan@petronas.com",
+      seniorManagerEmail: "jennifer.lee@petronas.com",
+      businessJustification:
+        "Replace legacy CRM system to improve customer relationship management and sales pipeline tracking.",
+      submittedDate: new Date("2024-03-08T14:15:00"),
+      managerStatus: "approved",
+      seniorManagerStatus: "pending",
+      businessAckStatus: "not-started",
+      overallStatus: "pending",
+      functionalRequirements: [
+        "Customer management",
+        "Sales pipeline",
+        "Reporting",
+      ],
+      nonFunctionalRequirements: ["Mobile responsive", "Integration with SAP"],
+      analysis: null,
+    },
+    {
+      id: "REQ-2024-003",
+      title: "Corporate HR Analytics Platform",
+      businessUnit: "Corporate",
+      operatingUnit: "Human Resources",
+      requestor: "Robert Kumar",
+      requestorEmail: "robert.kumar@petronas.com",
+      managerEmail: "priya.singh@petronas.com",
+      seniorManagerEmail: "james.ooi@petronas.com",
+      businessJustification:
+        "Implement advanced HR analytics to improve talent management and workforce planning across all business units.",
+      submittedDate: new Date("2024-03-05T11:45:00"),
+      managerStatus: "pending",
+      seniorManagerStatus: "not-started",
+      businessAckStatus: "not-started",
+      overallStatus: "pending",
+      functionalRequirements: [
+        "Employee analytics",
+        "Performance tracking",
+        "Workforce planning",
+      ],
+      nonFunctionalRequirements: [
+        "Real-time dashboards",
+        "Data privacy compliance",
+      ],
+      analysis: null,
+    },
+  ];
+
+  requestRepository.push(...sampleRequests);
+  refreshRepository();
+}
+
+// Initialize sample data when page loads
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    initializeSampleRepository();
+  }, 1000);
+});
