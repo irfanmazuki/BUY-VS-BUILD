@@ -64,15 +64,12 @@
                 <label for="businessUnit">Business Unit (BU)</label>
                 <select id="businessUnit">
                   <option value="">Select Business Unit</option>
-                  <option value="Upstream">Upstream</option>
+                  <option value="Corporate">Corporate</option>
                   <option value="Downstream">Downstream</option>
-                  <option value="Gas & New Energy">Gas & New Energy</option>
-                  <option value="Digital & Technology">
-                    Digital & Technology
-                  </option>
-                  <option value="Project Delivery & Technology">
-                    Project Delivery & Technology
-                  </option>
+                  <option value="Gas & Maritime">Gas & Maritime</option>
+                  <option value="MPM">MPM</option>
+                  <option value="PE&T">PE&T</option>
+                  <option value="Upstream">Upstream</option>
                 </select>
               </div>
 
@@ -228,6 +225,167 @@
             <button id="loadSampleBtn" class="btn btn-secondary">
               Load Sample Data
             </button>
+            <button
+              id="submitForApprovalBtn"
+              class="btn btn-approval"
+              style="display: none"
+            >
+              Submit for Official Approval
+            </button>
+          </div>
+
+          <!-- Approval Workflow Section -->
+          <div
+            id="approvalWorkflow"
+            class="approval-workflow"
+            style="display: none"
+          >
+            <div class="workflow-header">
+              <h3>Official Request & Approval Workflow</h3>
+              <p>
+                Submit your Buy vs Build analysis for official approval and
+                business acknowledgement
+              </p>
+            </div>
+
+            <div class="workflow-form">
+              <div class="form-group">
+                <label for="requestTitle">Request Title</label>
+                <input
+                  type="text"
+                  id="requestTitle"
+                  placeholder="e.g., Asset Management System - Buy vs Build Analysis"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="businessJustification"
+                  >Business Justification</label
+                >
+                <textarea
+                  id="businessJustification"
+                  placeholder="Explain the business need and urgency for this solution..."
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="requestorName">Requestor Name</label>
+                <input
+                  type="text"
+                  id="requestorName"
+                  placeholder="Your full name"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="requestorEmail">Requestor Email</label>
+                <input
+                  type="email"
+                  id="requestorEmail"
+                  placeholder="your.email@petronas.com"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="managerEmail">Direct Manager Email</label>
+                <input
+                  type="email"
+                  id="managerEmail"
+                  placeholder="manager.email@petronas.com"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="seniorManagerEmail">Senior Manager Email</label>
+                <input
+                  type="email"
+                  id="seniorManagerEmail"
+                  placeholder="senior.manager.email@petronas.com"
+                />
+              </div>
+
+              <div class="workflow-actions">
+                <button id="submitWorkflowBtn" class="btn btn-primary">
+                  Submit Official Request
+                </button>
+                <button id="cancelWorkflowBtn" class="btn btn-secondary">
+                  Cancel
+                </button>
+              </div>
+            </div>
+
+            <!-- Workflow Status -->
+            <div
+              id="workflowStatus"
+              class="workflow-status"
+              style="display: none"
+            >
+              <div class="status-header">
+                <h4>
+                  Request Status:
+                  <span id="currentStatus">Pending Manager Approval</span>
+                </h4>
+                <div class="request-id">
+                  Request ID: <span id="requestId">REQ-2024-001</span>
+                </div>
+              </div>
+
+              <div class="approval-timeline">
+                <div class="timeline-item active" id="step-submitted">
+                  <div class="timeline-icon">✓</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">Request Submitted</div>
+                    <div class="timeline-date">March 12, 2026 - 2:30 PM</div>
+                    <div class="timeline-user">
+                      By: <span id="submittedBy">John Doe</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="timeline-item pending" id="step-manager">
+                  <div class="timeline-icon">⏳</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">Manager Approval</div>
+                    <div class="timeline-date">Pending</div>
+                    <div class="timeline-user">
+                      Awaiting: <span id="managerName">Jane Smith</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="timeline-item" id="step-senior">
+                  <div class="timeline-icon">○</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">Senior Manager Approval</div>
+                    <div class="timeline-date">-</div>
+                    <div class="timeline-user">
+                      Awaiting:
+                      <span id="seniorManagerName">Robert Johnson</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="timeline-item" id="step-business">
+                  <div class="timeline-icon">○</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">Business Acknowledgement</div>
+                    <div class="timeline-date">-</div>
+                    <div class="timeline-user">
+                      Final approval for implementation
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="workflow-actions">
+                <button id="viewDetailsBtn" class="btn btn-secondary">
+                  View Full Details
+                </button>
+                <button id="newRequestBtn" class="btn btn-primary">
+                  Create New Request
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

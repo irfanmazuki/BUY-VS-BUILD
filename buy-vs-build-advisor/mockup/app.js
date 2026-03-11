@@ -47,6 +47,20 @@ function setupEventListeners() {
     .addEventListener("click", () => {
       document.getElementById("nonFunctionalInput").focus();
     });
+
+  // Approval workflow handlers
+  document
+    .getElementById("submitForApprovalBtn")
+    .addEventListener("click", showApprovalWorkflow);
+  document
+    .getElementById("submitWorkflowBtn")
+    .addEventListener("click", submitApprovalRequest);
+  document
+    .getElementById("cancelWorkflowBtn")
+    .addEventListener("click", hideApprovalWorkflow);
+  document
+    .getElementById("newRequestBtn")
+    .addEventListener("click", resetWorkflow);
 }
 
 function switchTab(tabName) {
@@ -283,6 +297,9 @@ function displayResults() {
   displayRiskAnalysis();
   displayComparison();
   displayTCOAnalysis();
+
+  // Show approval button after analysis is complete
+  showApprovalButton();
 
   // Don't switch tabs immediately - let progress animation complete first
   // Tab switching will happen in startProgressAnimation when complete
@@ -1310,4 +1327,204 @@ function startProgressAnimation() {
 
   // Start animation after a brief delay
   setTimeout(animateStep, 200);
+}
+// Approval Workflow Functions
+function showApprovalWorkflow() {
+  document.getElementById("approvalWorkflow").style.display = "block";
+  document.getElementById("workflowStatus").style.display = "none";
+
+  // Pre-fill some fields based on analysis
+  const businessUnit = document.getElementById("businessUnit").value;
+  const requestTitle = `${businessUnit} - Buy vs Build Analysis Request`;
+  document.getElementById("requestTitle").value = requestTitle;
+
+  // Scroll to workflow section
+  document.getElementById("approvalWorkflow").scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+}
+
+function hideApprovalWorkflow() {
+  document.getElementById("approvalWorkflow").style.display = "none";
+}
+
+function submitApprovalRequest() {
+  // Validate required fields
+  const requiredFields = [
+    "requestTitle",
+    "businessJustification",
+    "requestorName",
+    "requestorEmail",
+    "managerEmail",
+    "seniorManagerEmail",
+  ];
+
+  let isValid = true;
+  requiredFields.forEach((fieldId) => {
+    const field = document.getElementById(fieldId);
+    if (!field.value.trim()) {
+      field.style.borderColor = "#dc3545";
+      isValid = false;
+    } else {
+      field.style.borderColor = "";
+    }
+  });
+
+  if (!isValid) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  // Generate request ID
+  const requestId = `REQ-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 1000)).padStart(3, "0")}`;
+  document.getElementById("requestId").textContent = requestId;
+
+  // Update submitter info
+  document.getElementById("submittedBy").textContent =
+    document.getElementById("requestorName").value;
+
+  // Extract manager names from emails (simple extraction)
+  const managerEmail = document.getElementById("managerEmail").value;
+  const seniorManagerEmail =
+    document.getElementById("seniorManagerEmail").value;
+
+  document.getElementById("managerName").textContent =
+    extractNameFromEmail(managerEmail);
+  document.getElementById("seniorManagerName").textContent =
+    extractNameFromEmail(seniorManagerEmail);
+
+  // Show status and hide form
+  document.getElementById("workflowStatus").style.display = "block";
+  document.querySelector(".workflow-form").style.display = "none";
+
+  // Simulate workflow progression after a delay
+  setTimeout(() => {
+    simulateApprovalProgress();
+  }, 3000);
+}
+
+function extractNameFromEmail(email) {
+  if (!email) return "Unknown";
+  const namePart = email.split("@")[0];
+  return namePart
+    .split(".")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function simulateApprovalProgress() {
+  // Simulate manager approval
+  const managerStep = document.getElementById("step-manager");
+  managerStep.classList.remove("pending");
+  managerStep.classList.add("approved");
+  managerStep.querySelector(".timeline-icon").textContent = "✓";
+  managerStep.querySelector(".timeline-date").textContent =
+    "March 12, 2026 - 3:45 PM";
+
+  document.getElementById("currentStatus").textContent =
+    "Pending Senior Manager Approval";
+
+  // Move to senior manager step
+  const seniorStep = document.getElementById("step-senior");
+  seniorStep.classList.add("pending");
+
+  // Simulate senior manager approval after another delay
+  setTimeout(() => {
+    seniorStep.classList.remove("pending");
+    seniorStep.classList.add("approved");
+    seniorStep.querySelector(".timeline-icon").textContent = "✓";
+    seniorStep.querySelector(".timeline-date").textContent =
+      "March 12, 2026 - 4:20 PM";
+
+    document.getElementById("currentStatus").textContent =
+      "Pending Business Acknowledgement";
+
+    // Move to business acknowledgement
+    const businessStep = document.getElementById("step-business");
+    businessStep.classList.add("pending");
+
+    // Final approval
+    setTimeout(() => {
+      businessStep.classList.remove("pending");
+      businessStep.classList.add("approved");
+      businessStep.querySelector(".timeline-icon").textContent = "✓";
+      businessStep.querySelector(".timeline-date").textContent =
+        "March 13, 2026 - 9:15 AM";
+
+      document.getElementById("currentStatus").textContent =
+        "Approved - Ready for Implementation";
+      document.getElementById("currentStatus").style.color = "var(--p-emerald)";
+
+      // Show success message
+      showApprovalSuccess();
+    }, 4000);
+  }, 5000);
+}
+
+function showApprovalSuccess() {
+  const statusHeader = document.querySelector(".status-header");
+  const successBanner = document.createElement("div");
+  successBanner.className = "success-banner";
+  successBanner.innerHTML = `
+    <div style="background: var(--p-emerald); color: white; padding: 16px; border-radius: 8px; margin-top: 16px;">
+      <h4 style="margin: 0 0 8px 0;">🎉 Request Approved!</h4>
+      <p style="margin: 0; font-size: 14px;">Your Buy vs Build analysis has been officially approved. You can now proceed with implementation planning.</p>
+    </div>
+  `;
+  statusHeader.appendChild(successBanner);
+}
+
+function resetWorkflow() {
+  // Reset form
+  document.querySelector(".workflow-form").style.display = "block";
+  document.getElementById("workflowStatus").style.display = "none";
+
+  // Clear form fields
+  document.getElementById("requestTitle").value = "";
+  document.getElementById("businessJustification").value = "";
+  document.getElementById("requestorName").value = "";
+  document.getElementById("requestorEmail").value = "";
+  document.getElementById("managerEmail").value = "";
+  document.getElementById("seniorManagerEmail").value = "";
+
+  // Reset timeline
+  document.querySelectorAll(".timeline-item").forEach((item) => {
+    item.classList.remove("active", "pending", "approved", "rejected");
+  });
+
+  document.getElementById("step-submitted").classList.add("active");
+
+  // Reset icons and dates
+  document.querySelectorAll(".timeline-icon").forEach((icon, index) => {
+    if (index === 0) {
+      icon.textContent = "✓";
+    } else {
+      icon.textContent = "○";
+    }
+  });
+
+  document.querySelectorAll(".timeline-date").forEach((date, index) => {
+    if (index === 0) {
+      date.textContent = "March 12, 2026 - 2:30 PM";
+    } else {
+      date.textContent = "-";
+    }
+  });
+
+  // Remove success banner if exists
+  const successBanner = document.querySelector(".success-banner");
+  if (successBanner) {
+    successBanner.remove();
+  }
+
+  document.getElementById("currentStatus").textContent =
+    "Pending Manager Approval";
+  document.getElementById("currentStatus").style.color = "";
+}
+
+// Show approval button after analysis is complete
+function showApprovalButton() {
+  document.getElementById("submitForApprovalBtn").style.display =
+    "inline-block";
 }

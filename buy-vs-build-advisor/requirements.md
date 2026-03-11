@@ -34,7 +34,13 @@ Business users can independently screen solutions by providing:
   - Examples: Support 500+ users, 99.9% uptime, Response time under 2 seconds
   - Individual requirement items with remove functionality
 - **P4R Budget** - Approved budget for the solution (in MYR)
-- **Business Unit (BU)** - Which BU is requesting the solution (e.g., Upstream, Downstream, Gas & New Energy)
+- **Business Unit (BU)** - Official PETRONAS business units in alphabetical order:
+  - Corporate
+  - Downstream
+  - Gas & Maritime
+  - MPM
+  - PE&T
+  - Upstream
 - **Operating Unit (OPU)** - Specific OPU within the BU (e.g., Malaysia Operations, International Operations)
 - **Number of Users** - Expected user count
 - **Target Users** - Who will use the solution (roles/personas, e.g., Field Engineers, Managers, Analysts)
@@ -334,3 +340,66 @@ This visual enhancement makes TCO analysis more intuitive and enables faster dec
 - **Flexible Grid** - Adapts to different screen sizes while maintaining usability
 
 This enhancement makes requirements gathering more structured, user-friendly, and aligned with standard business analysis practices by clearly separating functional capabilities from performance and quality constraints.
+
+## Official Approval Workflow System (Added)
+
+### Business Unit Updates
+
+- **Official PETRONAS BUs** - Updated dropdown with correct business units in alphabetical order:
+  - Corporate
+  - Downstream
+  - Gas & Maritime
+  - MPM (Malaysia Petroleum Management)
+  - PE&T (Project Execution & Technology)
+  - Upstream
+
+### Approval Workflow Repository
+
+- **Official Request Submission** - Convert analysis into formal approval request
+- **Submit for Approval Button** - Appears after analysis completion for official submission
+- **Request Form Fields**:
+  - Request Title (auto-generated from BU and analysis type)
+  - Business Justification (detailed explanation of need and urgency)
+  - Requestor Name and Email
+  - Direct Manager Email
+  - Senior Manager Email
+
+### Multi-Level Approval Process
+
+- **3-Tier Approval Hierarchy**:
+  1. **Manager Approval** - Direct manager reviews and approves request
+  2. **Senior Manager Approval** - Senior manager provides secondary approval
+  3. **Business Acknowledgement** - Final business approval for implementation
+
+### Interactive Approval Timeline
+
+- **Real-Time Status Tracking** - Visual timeline showing current approval stage
+- **Status Indicators**:
+  - ✓ Completed steps (green)
+  - ⏳ Pending steps (gold)
+  - ○ Future steps (gray)
+- **Timestamp Tracking** - Date and time stamps for each approval stage
+- **Approver Identification** - Names extracted from email addresses for tracking
+
+### Workflow Simulation
+
+- **Realistic Timing** - Simulated approval delays (3-5 seconds per stage)
+- **Progressive Updates** - Status changes from Pending → Approved for each level
+- **Success Notification** - Celebration banner when fully approved
+- **Request ID Generation** - Unique request IDs (REQ-YYYY-XXX format)
+
+### Repository Features
+
+- **Request Management** - View full details of submitted requests
+- **New Request Creation** - Reset workflow for additional submissions
+- **Status Persistence** - Maintains approval state throughout session
+- **Email Integration Ready** - Email fields prepared for real notification system
+
+### Business Acknowledgement Workflow
+
+- **Final Approval Gate** - Business acknowledgement as final implementation approval
+- **Implementation Ready Status** - Clear indication when approved for execution
+- **Audit Trail** - Complete timeline of all approval stages and approvers
+- **Professional Workflow** - Enterprise-grade approval process simulation
+
+This approval workflow transforms the Buy vs Build Advisor from an analysis tool into a complete request management system, enabling official business processes and formal approval tracking for implementation decisions.
