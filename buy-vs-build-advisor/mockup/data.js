@@ -227,7 +227,7 @@ const mockData = {
 };
 
 // Matching algorithm
-function analyzeRequirements(requirementText) {
+function analyzeRequirements(requirementText, businessContext = {}) {
   const keywords = requirementText.toLowerCase();
 
   // Simple keyword matching for demo
@@ -255,11 +255,35 @@ function analyzeRequirements(requirementText) {
       }
     });
 
+    // Budget consideration for existing solutions
+    if (businessContext.p4rBudget > 0) {
+      if (sol.annualCost <= businessContext.p4rBudget) {
+        matchScore += 10; // Bonus for being within budget
+      } else if (sol.annualCost > businessContext.p4rBudget * 1.5) {
+        matchScore -= 15; // Penalty for being way over budget
+      }
+    }
+
+    // User count consideration
+    if (businessContext.numberOfUsers > 0) {
+      if (sol.users >= businessContext.numberOfUsers * 0.5) {
+        matchScore += 5; // Bonus for having similar or more users (proven scale)
+      }
+    }
+
     if (matchScore > 0) {
       matches.existing.push({
         ...sol,
         matchScore: Math.min(matchScore, 100),
         matchedFeatures,
+        budgetFit:
+          businessContext.p4rBudget > 0
+            ? sol.annualCost <= businessContext.p4rBudget
+              ? "Within Budget"
+              : sol.annualCost <= businessContext.p4rBudget * 1.2
+                ? "Close to Budget"
+                : "Over Budget"
+            : "N/A",
       });
     }
   });
@@ -280,11 +304,28 @@ function analyzeRequirements(requirementText) {
       matchScore += 25;
     }
 
+    // Budget consideration for market solutions
+    if (businessContext.p4rBudget > 0) {
+      if (sol.estimatedAnnualCost <= businessContext.p4rBudget) {
+        matchScore += 10;
+      } else if (sol.estimatedAnnualCost > businessContext.p4rBudget * 1.5) {
+        matchScore -= 15;
+      }
+    }
+
     if (matchScore > 0) {
       matches.market.push({
         ...sol,
         matchScore: Math.min(matchScore, 100),
         matchedFeatures,
+        budgetFit:
+          businessContext.p4rBudget > 0
+            ? sol.estimatedAnnualCost <= businessContext.p4rBudget
+              ? "Within Budget"
+              : sol.estimatedAnnualCost <= businessContext.p4rBudget * 1.2
+                ? "Close to Budget"
+                : "Over Budget"
+            : "N/A",
       });
     }
   });
@@ -293,12 +334,23 @@ function analyzeRequirements(requirementText) {
   matches.existing.sort((a, b) => b.matchScore - a.matchScore);
   matches.market.sort((a, b) => b.matchScore - a.matchScore);
 
-  // Build estimate (simplified)
+  // Build estimate (enhanced with business context)
   const featureCount = requirementText
     .split("\n")
     .filter((line) => line.trim()).length;
+  const baseDevCost = featureCount * 120000; // $120k per major feature
+  const userScalingFactor = businessContext.numberOfUsers > 100 ? 1.3 : 1.0;
+  const geoComplexityFactor =
+    businessContext.geoLocation === "Global"
+      ? 1.4
+      : businessContext.geoLocation?.includes("Regional")
+        ? 1.2
+        : 1.0;
+
+  const totalDevCost = baseDevCost * userScalingFactor * geoComplexityFactor;
+
   matches.buildEstimate = {
-    estimatedCost: featureCount * 120000, // $120k per major feature
+    estimatedCost: totalDevCost,
     estimatedTime: `${featureCount * 3}-${featureCount * 4} months`,
     team: "Internal Development Team",
     risks: [
@@ -307,18 +359,28 @@ function analyzeRequirements(requirementText) {
       "Integration complexity",
       "Ongoing maintenance burden",
     ],
+    budgetFit:
+      businessContext.p4rBudget > 0
+        ? totalDevCost <= businessContext.p4rBudget
+          ? "Within Budget"
+          : totalDevCost <= businessContext.p4rBudget * 1.2
+            ? "Close to Budget"
+            : "Over Budget"
+        : "N/A",
+    businessContext,
   };
 
   // Generate recommendation
-  const recommendation = generateRecommendation(matches);
+  const recommendation = generateRecommendation(matches, businessContext);
 
   return {
     matches,
     recommendation,
+    businessContext,
   };
 }
 
-function generateRecommendation(matches) {
+function generateRecommendation(matches, businessContext = {}) {
   const hasHighMatchExisting =
     matches.existing.length > 0 && matches.existing[0].matchScore >= 60;
   const hasHighMatchMarket =
