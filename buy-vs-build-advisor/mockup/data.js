@@ -338,7 +338,7 @@ function analyzeRequirements(requirementText, businessContext = {}) {
   const featureCount = requirementText
     .split("\n")
     .filter((line) => line.trim()).length;
-  const baseDevCost = featureCount * 120000; // $120k per major feature
+  const baseDevCost = featureCount * 120000; // RM120k per major feature
   const userScalingFactor = businessContext.numberOfUsers > 100 ? 1.3 : 1.0;
   const geoComplexityFactor =
     businessContext.geoLocation === "Global"

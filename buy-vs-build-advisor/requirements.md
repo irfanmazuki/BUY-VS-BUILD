@@ -26,7 +26,7 @@ Accelerate Buy vs Build decisions from 10-20 days to 2 days by providing:
 Business users can independently screen solutions by providing:
 
 - **Functional Requirements** - List of required features/capabilities (one per line)
-- **P4R Budget** - Approved budget for the solution (in USD)
+- **P4R Budget** - Approved budget for the solution (in MYR)
 - **Business Unit (BU)** - Which BU is requesting the solution (e.g., Upstream, Downstream, Gas & New Energy)
 - **Operating Unit (OPU)** - Specific OPU within the BU (e.g., Malaysia Operations, International Operations)
 - **Number of Users** - Expected user count
@@ -242,3 +242,22 @@ This extended timing provides a more realistic enterprise software experience wh
 - Result: All steps display properly and results appear after progress reaches 100%
 
 This ensures users see the complete 5-step processing experience before viewing analysis results.
+
+## Currency Localization (Updated)
+
+### Malaysian Ringgit (MYR) Implementation
+
+- **Currency Symbol Change** - All $ symbols replaced with RM throughout the application
+- **Currency Code Update** - USD references changed to MYR in form labels and documentation
+- **Localized for Malaysia** - Reflects PETRONAS Malaysia operations using local currency
+- **Consistent Display** - All cost displays, budgets, and financial analysis now show in Malaysian Ringgit
+
+### Updated Currency References
+
+- **P4R Budget Input** - Form label now shows "P4R Budget (MYR)" instead of USD
+- **Cost Comparisons** - All solution costs displayed as "RM450k" format instead of "$450k"
+- **TCO Analysis** - 5-year cost projections shown in Malaysian Ringgit
+- **Market Analysis** - Average market pricing and cost savings calculations in MYR
+- **Budget Fit Analysis** - Within/Over budget calculations based on MYR amounts
+
+This localization makes the prototype more relevant for PETRONAS Malaysia operations and aligns with local financial planning processes.

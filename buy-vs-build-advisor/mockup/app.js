@@ -264,7 +264,7 @@ function createReuseCard(solution, isRecommended) {
       <div class="cost-section">
         <div class="cost-label">Annual Cost</div>
         <div class="cost-value">
-          $${(solution.annualCost / 1000).toFixed(0)}k
+          RM${(solution.annualCost / 1000).toFixed(0)}k
           <span class="cost-period">/ year</span>
         </div>
       </div>
@@ -329,7 +329,7 @@ function createBuyCard(solution, isRecommended) {
       <div class="cost-section">
         <div class="cost-label">Estimated Annual Cost</div>
         <div class="cost-value">
-          $${(solution.estimatedAnnualCost / 1000).toFixed(0)}k
+          RM${(solution.estimatedAnnualCost / 1000).toFixed(0)}k
           <span class="cost-period">/ year</span>
         </div>
       </div>
@@ -378,7 +378,7 @@ function createBuildCard(buildEstimate, isRecommended) {
       <div class="cost-section">
         <div class="cost-label">Estimated Development Cost</div>
         <div class="cost-value">
-          $${(buildEstimate.estimatedCost / 1000).toFixed(0)}k
+          RM${(buildEstimate.estimatedCost / 1000).toFixed(0)}k
           <span class="cost-period">one-time</span>
         </div>
       </div>
@@ -393,7 +393,7 @@ function createBuildCard(buildEstimate, isRecommended) {
       </div>
       <div class="info-row">
         <span class="info-label">Ongoing Maintenance</span>
-        <span class="info-value">$${((buildEstimate.estimatedCost * 0.15) / 1000).toFixed(0)}k/year</span>
+        <span class="info-value">RM${((buildEstimate.estimatedCost * 0.15) / 1000).toFixed(0)}k/year</span>
       </div>
       <div class="info-row">
         <span class="info-label">Flexibility</span>
@@ -448,7 +448,7 @@ function createCatalogCard(solution) {
       
       <div style="border-top: 1px solid var(--border-light); padding-top: 12px; margin-top: 12px;">
         <div class="catalog-cost">
-          $${(solution.annualCost / 1000).toFixed(0)}k
+          RM${(solution.annualCost / 1000).toFixed(0)}k
           <span class="catalog-cost-label">/ year</span>
         </div>
       </div>
@@ -480,7 +480,7 @@ function createMarketCard(solution) {
       
       <div style="border-top: 1px solid var(--border-light); padding-top: 12px; margin-top: 12px;">
         <div class="catalog-cost" style="color: var(--p-purple);">
-          $${(solution.estimatedAnnualCost / 1000).toFixed(0)}k
+          RM${(solution.estimatedAnnualCost / 1000).toFixed(0)}k
           <span class="catalog-cost-label">/ year (est.)</span>
         </div>
       </div>
@@ -521,7 +521,7 @@ function displayMarketAnalysis() {
       
       <div class="analysis-item market-item">
         <h4>Average Market Price</h4>
-        <div class="metric">$${Math.round(avgMarketCost / 1000)}k/year</div>
+        <div class="metric">RM${Math.round(avgMarketCost / 1000)}k/year</div>
         <p>Based on ${marketSolutions.length} leading vendors. ${businessContext.p4rBudget > avgMarketCost ? "Within your budget range." : "Above your current budget."}</p>
       </div>
       
@@ -583,7 +583,7 @@ function displayExistingAnalysis() {
       
       <div class="analysis-item">
         <h4>Cost Savings Potential</h4>
-        <div class="metric">${existingSolutions.length > 0 ? Math.round(((matches.buildEstimate?.estimatedCost || 0) - (existingSolutions[0]?.annualCost || 0) * 3) / 1000) : 0}k</div>
+        <div class="metric">RM${existingSolutions.length > 0 ? Math.round(((matches.buildEstimate?.estimatedCost || 0) - (existingSolutions[0]?.annualCost || 0) * 3) / 1000) : 0}k</div>
         <p>Estimated 3-year savings vs custom build through solution reuse and extension.</p>
       </div>
     </div>
@@ -686,10 +686,10 @@ function displayTCOAnalysis() {
           ? `
         <div class="tco-option reuse">
           <div class="tco-title">Reuse Existing</div>
-          <div class="tco-amount">$${Math.round(reuseTCO.total5yr / 1000)}k</div>
+          <div class="tco-amount">RM${Math.round(reuseTCO.total5yr / 1000)}k</div>
           <div class="tco-breakdown">
-            Year 1: $${Math.round(reuseTCO.year1 / 1000)}k<br>
-            Years 2-5: $${Math.round(reuseTCO.ongoing / 1000)}k/year<br>
+            Year 1: RM${Math.round(reuseTCO.year1 / 1000)}k<br>
+            Years 2-5: RM${Math.round(reuseTCO.ongoing / 1000)}k/year<br>
             <strong>Fastest ROI</strong>
           </div>
         </div>
@@ -702,10 +702,10 @@ function displayTCOAnalysis() {
           ? `
         <div class="tco-option buy">
           <div class="tco-title">Buy Market Solution</div>
-          <div class="tco-amount">$${Math.round(buyTCO.total5yr / 1000)}k</div>
+          <div class="tco-amount">RM${Math.round(buyTCO.total5yr / 1000)}k</div>
           <div class="tco-breakdown">
-            Year 1: $${Math.round(buyTCO.year1 / 1000)}k<br>
-            Years 2-5: $${Math.round(buyTCO.ongoing / 1000)}k/year<br>
+            Year 1: RM${Math.round(buyTCO.year1 / 1000)}k<br>
+            Years 2-5: RM${Math.round(buyTCO.ongoing / 1000)}k/year<br>
             <strong>Vendor Support</strong>
           </div>
         </div>
@@ -718,10 +718,10 @@ function displayTCOAnalysis() {
           ? `
         <div class="tco-option build">
           <div class="tco-title">Build Custom</div>
-          <div class="tco-amount">$${Math.round(buildTCO.total5yr / 1000)}k</div>
+          <div class="tco-amount">RM${Math.round(buildTCO.total5yr / 1000)}k</div>
           <div class="tco-breakdown">
-            Year 1: $${Math.round(buildTCO.year1 / 1000)}k<br>
-            Years 2-5: $${Math.round(buildTCO.ongoing / 1000)}k/year<br>
+            Year 1: RM${Math.round(buildTCO.year1 / 1000)}k<br>
+            Years 2-5: RM${Math.round(buildTCO.ongoing / 1000)}k/year<br>
             <strong>Full Control</strong>
           </div>
         </div>
@@ -733,7 +733,7 @@ function displayTCOAnalysis() {
     <div style="margin-top: 24px; padding: 16px; background: var(--border-light); border-radius: 8px;">
       <h4 style="font-weight: 700; margin-bottom: 8px;">TCO Analysis Summary</h4>
       <p style="font-size: 14px; color: var(--text-body); margin-bottom: 8px;">
-        Based on your P4R budget of $${businessContext.p4rBudget ? (businessContext.p4rBudget / 1000).toFixed(0) + "k" : "N/A"} and ${businessContext.numberOfUsers || "estimated"} users:
+        Based on your P4R budget of RM${businessContext.p4rBudget ? (businessContext.p4rBudget / 1000).toFixed(0) + "k" : "N/A"} and ${businessContext.numberOfUsers || "estimated"} users:
       </p>
       <ul style="font-size: 13px; color: var(--text-secondary); margin-left: 20px;">
         <li>Hidden costs include integration, training, and ongoing maintenance</li>
