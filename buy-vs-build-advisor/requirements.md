@@ -777,3 +777,36 @@ This enhancement ensures proper AIEA (Architecture, Integration, and Enterprise 
 - **Risk Mitigation** - Industry-standard capability mapping reduces vendor selection risk
 
 This enhancement transforms the market solutions catalog from a basic vendor listing into a comprehensive enterprise solution repository with industry-standard capability analysis, making it suitable for professional Buy vs Build decision-making processes at PETRONAS scale.
+
+## Submit for Official Approval Button Relocation (Updated)
+
+### Improved User Experience Flow
+
+- **Button Relocation** - Moved "Submit for Official Approval" button from Analyze Requirements tab to Results & Comparison tab
+- **Contextual Placement** - Button now appears at the top of Results tab after analysis is generated, providing better context
+- **Enhanced Visual Design** - Button displayed in a highlighted section with gradient background and descriptive text
+- **Logical Workflow** - Users now review their complete analysis results before deciding to submit for official approval
+
+### Updated User Journey
+
+1. **Analyze Requirements Tab** - Users fill in business context and requirements, then click "Analyze & Get Recommendation"
+2. **Processing Animation** - 20-second progress animation shows analysis stages
+3. **Results & Comparison Tab** - Automatic tab switch to show comprehensive analysis results
+4. **Submit for Approval** - Prominent button at top of Results tab allows users to submit analysis for official approval after reviewing results
+5. **Approval Workflow** - Standard 3-tier approval process continues as before
+
+### Visual Enhancements
+
+- **Highlighted Section** - Gold gradient background with subtle border to draw attention
+- **Descriptive Text** - Clear explanation of what happens when button is clicked
+- **Professional Styling** - Consistent with PETRONAS brand colors and design system
+- **Responsive Design** - Maintains proper layout across different screen sizes
+
+### Business Benefits
+
+- **Better Decision Context** - Users can review complete analysis before committing to approval workflow
+- **Reduced Premature Submissions** - Button placement encourages thorough review of results
+- **Cleaner Interface** - Analyze Requirements tab now focuses solely on data input
+- **Improved User Experience** - More logical flow from analysis to approval decision
+
+This enhancement improves the user experience by ensuring users have full visibility of their analysis results before deciding to submit for official approval, leading to more informed decision-making and reduced workflow interruptions.

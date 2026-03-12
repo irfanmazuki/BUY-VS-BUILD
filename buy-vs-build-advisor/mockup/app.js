@@ -16,9 +16,6 @@ function setupEventListeners() {
   document
     .getElementById("analyzeBtn")
     .addEventListener("click", analyzeRequirements);
-  document
-    .getElementById("loadSampleBtn")
-    .addEventListener("click", loadSampleRequirements);
 
   // Business Unit change handler for AIEA focal assignment
   document
@@ -54,30 +51,42 @@ function setupEventListeners() {
       document.getElementById("nonFunctionalInput").focus();
     });
 
-  // Approval workflow handlers
-  document
-    .getElementById("submitForApprovalBtn")
-    .addEventListener("click", showApprovalWorkflow);
-  document
-    .getElementById("submitWorkflowBtn")
-    .addEventListener("click", submitApprovalRequest);
-  document
-    .getElementById("cancelWorkflowBtn")
-    .addEventListener("click", hideApprovalWorkflow);
-  document
-    .getElementById("newRequestBtn")
-    .addEventListener("click", resetWorkflow);
+  // Approval workflow handlers - with error checking
+  const submitForApprovalBtn = document.getElementById("submitForApprovalBtn");
+  if (submitForApprovalBtn) {
+    submitForApprovalBtn.addEventListener("click", showApprovalWorkflow);
+  }
+
+  const submitWorkflowBtn = document.getElementById("submitWorkflowBtn");
+  if (submitWorkflowBtn) {
+    submitWorkflowBtn.addEventListener("click", submitApprovalRequest);
+  }
+
+  const cancelWorkflowBtn = document.getElementById("cancelWorkflowBtn");
+  if (cancelWorkflowBtn) {
+    cancelWorkflowBtn.addEventListener("click", hideApprovalWorkflow);
+  }
+
+  const newRequestBtn = document.getElementById("newRequestBtn");
+  if (newRequestBtn) {
+    newRequestBtn.addEventListener("click", resetWorkflow);
+  }
 
   // Repository handlers
-  document
-    .getElementById("refreshRepositoryBtn")
-    .addEventListener("click", refreshRepository);
-  document
-    .getElementById("statusFilter")
-    .addEventListener("change", filterRequests);
-  document
-    .getElementById("buFilter")
-    .addEventListener("change", filterRequests);
+  const refreshRepositoryBtn = document.getElementById("refreshRepositoryBtn");
+  if (refreshRepositoryBtn) {
+    refreshRepositoryBtn.addEventListener("click", refreshRepository);
+  }
+
+  const statusFilter = document.getElementById("statusFilter");
+  if (statusFilter) {
+    statusFilter.addEventListener("change", filterRequests);
+  }
+
+  const buFilter = document.getElementById("buFilter");
+  if (buFilter) {
+    buFilter.addEventListener("change", filterRequests);
+  }
 }
 
 function switchTab(tabName) {
@@ -1686,8 +1695,7 @@ function resetWorkflow() {
 
 // Show approval button after analysis is complete
 function showApprovalButton() {
-  document.getElementById("submitForApprovalBtn").style.display =
-    "inline-block";
+  document.getElementById("approvalButtonSection").style.display = "block";
 }
 // Request Repository Functions
 function refreshRepository() {
@@ -2013,10 +2021,3 @@ function initializeSampleRepository() {
   requestRepository.push(...sampleRequests);
   refreshRepository();
 }
-
-// Initialize sample data when page loads
-document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    initializeSampleRepository();
-  }, 1000);
-});
