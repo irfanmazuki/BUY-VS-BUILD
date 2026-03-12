@@ -682,3 +682,98 @@ This Solution Overview tab transforms the Buy vs Build Advisor into a complete s
 - **Audit Trail** - AIEA focal assignment recorded in request repository for governance
 
 This enhancement ensures proper AIEA (Architecture, Integration, and Enterprise Applications) focal assignment based on business unit selection, aligning with PETRONAS organizational structure and governance requirements.
+
+## Enhanced Market Solutions Catalog (Added)
+
+### Industry-Grade Capability Analysis for Market Solutions
+
+- **Comprehensive Capability Mapping** - Each market solution now includes detailed capabilities based on Gartner, Forrester, and official vendor documentation
+- **Analyst Framework Alignment** - Solutions mapped to recognized analyst frameworks and industry best practices
+- **Workflow Management Details** - Specific workflow capabilities including automation, approval routing, and business process management
+- **Enterprise Integration Capabilities** - Detailed API, integration platform, and enterprise system connectivity information
+
+### Advanced Market Solution Profiles
+
+#### IBM Maximo
+
+- **AI-Powered Asset Intelligence**: Watson AI integration for predictive failure analysis and optimization recommendations
+- **Enterprise IoT Platform**: Native Watson IoT integration for real-time monitoring and edge computing
+- **Predictive Maintenance Optimization**: Advanced algorithms with 95% accuracy for failure prediction
+- **Mobile-First Workforce Management**: AR/VR capabilities for remote inspections and voice-to-text updates
+- **Regulatory Compliance Automation**: Built-in frameworks for ISO 55000, OSHA, EPA compliance
+- **Spatial Asset Management**: GIS integration with 3D visualization capabilities
+- **Health, Safety & Environment (HSE)**: Comprehensive HSE management with incident tracking
+- **Enterprise Integration Platform**: Pre-built connectors for 200+ enterprise systems
+
+#### SAP EAM
+
+- **Integrated Business Suite**: Native S/4HANA integration for seamless financial and procurement processes
+- **Intelligent Asset Management**: SAP Leonardo IoT and ML integration for predictive analytics
+- **Plant Maintenance Excellence**: Comprehensive maintenance with equipment hierarchies and technical objects
+- **Financial Integration & Control**: Real-time cost tracking with automatic posting to controlling
+- **Materials Management Integration**: Seamless SAP MM integration for spare parts and inventory
+- **Mobile Plant Maintenance**: SAP Fiori-based mobile apps with offline capabilities
+- **Advanced Analytics & KPIs**: SAP Analytics Cloud integration for real-time dashboards
+- **Compliance & Audit Trail**: Complete audit trail with regulatory compliance support
+
+#### Snowflake Data Cloud
+
+- **Multi-Cloud Data Architecture**: Native AWS, Azure, Google Cloud support without vendor lock-in
+- **Elastic Compute & Storage**: Automatic scaling with separate compute/storage layers
+- **Secure Data Sharing**: Live data sharing across organizations without data movement
+- **Data Marketplace & Exchange**: Access to 1000+ live data sets from leading providers
+- **Machine Learning & AI Integration**: Native Python, R, Java, Scala support with Snowpark
+- **Zero-Copy Cloning**: Instant database cloning without storage overhead
+- **Time Travel & Data Recovery**: Query historical data up to 90 days with point-in-time recovery
+- **Advanced Security & Compliance**: End-to-end encryption with SOC 2, HIPAA, PCI DSS compliance
+
+#### Salesforce Sales Cloud
+
+- **Einstein AI Platform**: Comprehensive AI suite with predictive lead scoring and opportunity insights
+- **Customer 360 Platform**: Unified customer view across sales, service, marketing, and commerce
+- **Sales Process Automation**: Configurable sales processes with approval workflows and guided selling
+- **Advanced Analytics & Forecasting**: Einstein Analytics with predictive forecasting and pipeline analysis
+- **Omnichannel Marketing**: Pardot and Marketing Cloud integration for lead nurturing
+- **Service Cloud Integration**: Seamless handoff from sales to service with case management
+- **AppExchange Ecosystem**: Access to 5000+ pre-built apps and integrations
+- **Mobile-First Architecture**: Native mobile apps with offline capabilities and location services
+
+#### Microsoft Project for the Web
+
+- **Microsoft 365 Ecosystem Integration**: Native Teams, SharePoint, Outlook integration with SSO
+- **Power Platform Automation**: Power Automate workflows, Power Apps forms, Power BI analytics
+- **Hybrid Project Methodologies**: Support for Waterfall, Agile, and hybrid approaches
+- **Resource Capacity Planning**: Advanced resource management with skills-based matching
+- **Portfolio Analytics & Insights**: Real-time dashboards with project health indicators
+- **Collaborative Project Execution**: Microsoft Teams integration for project communication
+- **Enterprise Security & Compliance**: Azure AD integration with data loss prevention
+- **Scalable Cloud Architecture**: Cloud-native platform with automatic scaling
+
+#### ServiceNow IT Service Management
+
+- **Intelligent Workflow Automation**: AI-powered automation with ML for incident prediction
+- **Configuration Management Database (CMDB)**: Comprehensive CMDB with automatic discovery
+- **Predictive Intelligence**: ML algorithms for predictive incident management and root cause analysis
+- **Service Portal & Employee Experience**: Modern self-service portal with chatbots and virtual agents
+- **IT Operations Management (ITOM)**: Integrated ITOM suite with event management and orchestration
+- **Performance Analytics**: Real-time dashboards with predictive analytics for service performance
+- **Integration Hub**: Pre-built integrations with 300+ enterprise applications
+- **Security Operations Integration**: Native integration with Security Operations for unified incident management
+
+### Enhanced Visual Design
+
+- **Enhanced Card Layout** - Expanded cards with organized sections for better information hierarchy
+- **Capability Tags** - Visual tags for core capabilities with expandable "more" indicators
+- **Industry Alignment Badges** - Clear indicators showing Gartner and Forrester framework compliance
+- **Scrollable Detailed Capabilities** - Organized, scrollable sections for comprehensive capability descriptions
+- **Professional Styling** - Enterprise-grade visual design matching industry solution catalogs
+- **Analyst Framework Integration** - Clear display of Gartner Magic Quadrant and Forrester Wave positioning
+
+### Business Value Enhancement
+
+- **Professional Buy vs Build Analysis** - Market solutions now provide enterprise-grade capability analysis suitable for executive decision-making
+- **Vendor Evaluation Framework** - Comprehensive vendor capability assessment based on industry analyst research
+- **Implementation Planning Support** - Detailed capability descriptions help with implementation planning and vendor selection
+- **Risk Mitigation** - Industry-standard capability mapping reduces vendor selection risk
+
+This enhancement transforms the market solutions catalog from a basic vendor listing into a comprehensive enterprise solution repository with industry-standard capability analysis, making it suitable for professional Buy vs Build decision-making processes at PETRONAS scale.
