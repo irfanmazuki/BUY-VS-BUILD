@@ -146,6 +146,82 @@ function setupEventListeners() {
       }
     });
   }
+
+  // Search and filter handlers for existing solutions
+  const existingSearchBtn = document.getElementById("existingSearchBtn");
+  if (existingSearchBtn) {
+    existingSearchBtn.addEventListener("click", filterExistingSolutions);
+  }
+
+  const existingSearchInput = document.getElementById("existingSearchInput");
+  if (existingSearchInput) {
+    existingSearchInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        filterExistingSolutions();
+      }
+    });
+    existingSearchInput.addEventListener("input", filterExistingSolutions);
+  }
+
+  const existingDomainFilter = document.getElementById("existingDomainFilter");
+  if (existingDomainFilter) {
+    existingDomainFilter.addEventListener("change", filterExistingSolutions);
+  }
+
+  const existingTypeFilter = document.getElementById("existingTypeFilter");
+  if (existingTypeFilter) {
+    existingTypeFilter.addEventListener("change", filterExistingSolutions);
+  }
+
+  const existingReuseFilter = document.getElementById("existingReuseFilter");
+  if (existingReuseFilter) {
+    existingReuseFilter.addEventListener("change", filterExistingSolutions);
+  }
+
+  const existingClearFiltersBtn = document.getElementById(
+    "existingClearFiltersBtn",
+  );
+  if (existingClearFiltersBtn) {
+    existingClearFiltersBtn.addEventListener("click", clearExistingFilters);
+  }
+
+  // Search and filter handlers for market solutions
+  const marketSearchBtn = document.getElementById("marketSearchBtn");
+  if (marketSearchBtn) {
+    marketSearchBtn.addEventListener("click", filterMarketSolutions);
+  }
+
+  const marketSearchInput = document.getElementById("marketSearchInput");
+  if (marketSearchInput) {
+    marketSearchInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        filterMarketSolutions();
+      }
+    });
+    marketSearchInput.addEventListener("input", filterMarketSolutions);
+  }
+
+  const marketCategoryFilter = document.getElementById("marketCategoryFilter");
+  if (marketCategoryFilter) {
+    marketCategoryFilter.addEventListener("change", filterMarketSolutions);
+  }
+
+  const marketQuadrantFilter = document.getElementById("marketQuadrantFilter");
+  if (marketQuadrantFilter) {
+    marketQuadrantFilter.addEventListener("change", filterMarketSolutions);
+  }
+
+  const marketVendorFilter = document.getElementById("marketVendorFilter");
+  if (marketVendorFilter) {
+    marketVendorFilter.addEventListener("change", filterMarketSolutions);
+  }
+
+  const marketClearFiltersBtn = document.getElementById(
+    "marketClearFiltersBtn",
+  );
+  if (marketClearFiltersBtn) {
+    marketClearFiltersBtn.addEventListener("click", clearMarketFilters);
+  }
 }
 
 function switchTab(tabName) {
@@ -2485,3 +2561,189 @@ document.addEventListener("keydown", (e) => {
     }
   }
 });
+// Search and Filter Functions for Existing Solutions
+function filterExistingSolutions() {
+  const searchTerm = document
+    .getElementById("existingSearchInput")
+    .value.toLowerCase();
+  const domainFilter = document.getElementById("existingDomainFilter").value;
+  const typeFilter = document.getElementById("existingTypeFilter").value;
+  const reuseFilter = document.getElementById("existingReuseFilter").value;
+
+  let filteredSolutions = mockData.existingSolutions.filter((solution) => {
+    // Search filter
+    const matchesSearch =
+      !searchTerm ||
+      solution.name.toLowerCase().includes(searchTerm) ||
+      solution.domain.toLowerCase().includes(searchTerm) ||
+      solution.description.toLowerCase().includes(searchTerm) ||
+      solution.capabilities.some((cap) =>
+        cap.toLowerCase().includes(searchTerm),
+      ) ||
+      solution.features.some((feature) =>
+        feature.toLowerCase().includes(searchTerm),
+      );
+
+    // Domain filter
+    const matchesDomain =
+      domainFilter === "all" || solution.domain === domainFilter;
+
+    // Type filter
+    const matchesType = typeFilter === "all" || solution.type === typeFilter;
+
+    // Reuse potential filter
+    const matchesReuse =
+      reuseFilter === "all" || solution.reusePotential === reuseFilter;
+
+    return matchesSearch && matchesDomain && matchesType && matchesReuse;
+  });
+
+  renderFilteredExistingSolutions(filteredSolutions);
+}
+
+function renderFilteredExistingSolutions(solutions) {
+  const existingGrid = document.getElementById("existingCatalog");
+
+  if (solutions.length === 0) {
+    existingGrid.innerHTML = `
+      <div class="no-results">
+        <div class="no-results-icon">🔍</div>
+        <h3>No Solutions Found</h3>
+        <p>Try adjusting your search terms or filters to find relevant solutions.</p>
+      </div>
+    `;
+  } else {
+    existingGrid.innerHTML = solutions
+      .map((sol) => createCatalogCard(sol))
+      .join("");
+  }
+
+  // Add results info
+  updateResultsInfo(
+    "existing",
+    solutions.length,
+    mockData.existingSolutions.length,
+  );
+}
+
+function clearExistingFilters() {
+  document.getElementById("existingSearchInput").value = "";
+  document.getElementById("existingDomainFilter").value = "all";
+  document.getElementById("existingTypeFilter").value = "all";
+  document.getElementById("existingReuseFilter").value = "all";
+
+  // Re-render all solutions
+  renderFilteredExistingSolutions(mockData.existingSolutions);
+}
+
+// Search and Filter Functions for Market Solutions
+function filterMarketSolutions() {
+  const searchTerm = document
+    .getElementById("marketSearchInput")
+    .value.toLowerCase();
+  const categoryFilter = document.getElementById("marketCategoryFilter").value;
+  const quadrantFilter = document.getElementById("marketQuadrantFilter").value;
+  const vendorFilter = document.getElementById("marketVendorFilter").value;
+
+  let filteredSolutions = mockData.marketSolutions.filter((solution) => {
+    // Search filter
+    const matchesSearch =
+      !searchTerm ||
+      solution.name.toLowerCase().includes(searchTerm) ||
+      solution.vendor.toLowerCase().includes(searchTerm) ||
+      solution.category.toLowerCase().includes(searchTerm) ||
+      solution.description.toLowerCase().includes(searchTerm) ||
+      (solution.capabilities &&
+        solution.capabilities.some((cap) =>
+          cap.toLowerCase().includes(searchTerm),
+        )) ||
+      solution.features.some((feature) =>
+        feature.toLowerCase().includes(searchTerm),
+      );
+
+    // Category filter
+    const matchesCategory =
+      categoryFilter === "all" || solution.category === categoryFilter;
+
+    // Quadrant filter
+    const matchesQuadrant =
+      quadrantFilter === "all" || solution.gartnerQuadrant === quadrantFilter;
+
+    // Vendor filter
+    const matchesVendor =
+      vendorFilter === "all" || solution.vendor === vendorFilter;
+
+    return matchesSearch && matchesCategory && matchesQuadrant && matchesVendor;
+  });
+
+  renderFilteredMarketSolutions(filteredSolutions);
+}
+
+function renderFilteredMarketSolutions(solutions) {
+  const marketGrid = document.getElementById("marketCatalog");
+
+  if (solutions.length === 0) {
+    marketGrid.innerHTML = `
+      <div class="no-results">
+        <div class="no-results-icon">🔍</div>
+        <h3>No Solutions Found</h3>
+        <p>Try adjusting your search terms or filters to find relevant market solutions.</p>
+      </div>
+    `;
+  } else {
+    marketGrid.innerHTML = solutions
+      .map((sol) => createMarketCard(sol))
+      .join("");
+  }
+
+  // Add results info
+  updateResultsInfo(
+    "market",
+    solutions.length,
+    mockData.marketSolutions.length,
+  );
+}
+
+function clearMarketFilters() {
+  document.getElementById("marketSearchInput").value = "";
+  document.getElementById("marketCategoryFilter").value = "all";
+  document.getElementById("marketQuadrantFilter").value = "all";
+  document.getElementById("marketVendorFilter").value = "all";
+
+  // Re-render all solutions
+  renderFilteredMarketSolutions(mockData.marketSolutions);
+}
+
+// Helper function to update results info
+function updateResultsInfo(type, filteredCount, totalCount) {
+  const tabId = type === "existing" ? "existing-tab" : "market-tab";
+  const tab = document.getElementById(tabId);
+
+  // Remove existing results info
+  const existingInfo = tab.querySelector(".catalog-results-info");
+  if (existingInfo) {
+    existingInfo.remove();
+  }
+
+  // Add new results info
+  const catalogGrid = tab.querySelector(".catalog-grid");
+  const resultsInfo = document.createElement("div");
+  resultsInfo.className = "catalog-results-info";
+  resultsInfo.innerHTML = `
+    <div class="results-count">
+      Showing ${filteredCount} of ${totalCount} solutions
+    </div>
+    ${filteredCount !== totalCount ? `<div class="filter-status">Filters applied</div>` : ""}
+  `;
+
+  catalogGrid.parentNode.insertBefore(resultsInfo, catalogGrid);
+}
+
+// Enhanced renderCatalog function to support filtering
+function renderCatalog() {
+  // Render existing solutions with initial filter state
+  renderFilteredExistingSolutions(mockData.existingSolutions);
+
+  // Render market solutions with initial filter state
+  renderFilteredMarketSolutions(mockData.marketSolutions);
+}

@@ -958,6 +958,46 @@
           </p>
         </div>
 
+        <!-- Search and Filter Controls -->
+        <div class="catalog-controls">
+          <div class="controls-row">
+            <div class="search-input-group">
+              <input
+                type="text"
+                id="existingSearchInput"
+                class="search-input"
+                placeholder="Search solutions..."
+              />
+            </div>
+
+            <select id="existingDomainFilter" class="filter-select">
+              <option value="all">All Domains</option>
+              <option value="Operations">Operations</option>
+              <option value="Data & Analytics">Data & Analytics</option>
+              <option value="Procurement">Procurement</option>
+              <option value="Project Management">Project Management</option>
+              <option value="Commercial">Commercial</option>
+            </select>
+
+            <select id="existingTypeFilter" class="filter-select">
+              <option value="all">All Types</option>
+              <option value="Internal">Internal</option>
+              <option value="Vendor">Vendor</option>
+            </select>
+
+            <select id="existingReuseFilter" class="filter-select">
+              <option value="all">All Reuse Potential</option>
+              <option value="High">High Reuse</option>
+              <option value="Medium">Medium Reuse</option>
+              <option value="Low">Low Reuse</option>
+            </select>
+
+            <button id="existingClearFiltersBtn" class="clear-filters-btn">
+              Clear
+            </button>
+          </div>
+        </div>
+
         <div id="existingCatalog" class="catalog-grid">
           <!-- Populated by JavaScript -->
         </div>
@@ -971,6 +1011,53 @@
             Curated market solutions based on Gartner, Forrester, and industry
             research. Quickly identify Buy options.
           </p>
+        </div>
+
+        <!-- Search and Filter Controls -->
+        <div class="catalog-controls">
+          <div class="controls-row">
+            <div class="search-input-group">
+              <input
+                type="text"
+                id="marketSearchInput"
+                class="search-input"
+                placeholder="Search market solutions..."
+              />
+            </div>
+
+            <select id="marketCategoryFilter" class="filter-select">
+              <option value="all">All Categories</option>
+              <option value="Asset Management">Asset Management</option>
+              <option value="Data Platform">Data Platform</option>
+              <option value="CRM">CRM</option>
+              <option value="Project Management">Project Management</option>
+              <option value="IT Service Management">
+                IT Service Management
+              </option>
+            </select>
+
+            <select id="marketQuadrantFilter" class="filter-select">
+              <option value="all">All Quadrants</option>
+              <option value="Leader">Leader</option>
+              <option value="Challenger">Challenger</option>
+              <option value="Visionary">Visionary</option>
+              <option value="Niche Player">Niche Player</option>
+            </select>
+
+            <select id="marketVendorFilter" class="filter-select">
+              <option value="all">All Vendors</option>
+              <option value="IBM">IBM</option>
+              <option value="SAP">SAP</option>
+              <option value="Snowflake">Snowflake</option>
+              <option value="Salesforce">Salesforce</option>
+              <option value="Microsoft">Microsoft</option>
+              <option value="ServiceNow">ServiceNow</option>
+            </select>
+
+            <button id="marketClearFiltersBtn" class="clear-filters-btn">
+              Clear
+            </button>
+          </div>
         </div>
 
         <div id="marketCatalog" class="catalog-grid">

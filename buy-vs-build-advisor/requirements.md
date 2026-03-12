@@ -933,3 +933,106 @@ This addition reinforces that the Buy vs Build Advisor is not just a technical t
 - **Relationship Building** - Strengthens connection between business users and EA team
 
 This chat integration transforms the Buy vs Build Advisor from a self-service tool into a collaborative platform that combines AI-powered analysis with human expertise, ensuring users receive both automated recommendations and personalized guidance from PETRONAS Enterprise Architecture professionals.
+
+## Search and Filter Functionality (Added)
+
+### Advanced Solution Discovery
+
+- **Comprehensive Search** - Added search functionality for both Existing Solutions and Market Solutions catalogs
+- **Multi-Criteria Filtering** - Category-based filtering with multiple filter options for refined solution discovery
+- **Real-Time Results** - Instant search and filter results with live result counts
+- **Clear Filter Options** - Easy-to-use clear filters functionality to reset search criteria
+
+### Existing Solutions Search & Filtering
+
+#### Search Capabilities
+
+- **Text Search** - Search across solution names, domains, descriptions, capabilities, and features
+- **Real-Time Search** - Results update as user types with Enter key support
+- **Comprehensive Matching** - Searches through all solution metadata for relevant matches
+
+#### Filter Options
+
+- **Domain Filter** - Filter by solution domain (Operations, Data & Analytics, Procurement, Project Management, Commercial)
+- **Type Filter** - Filter by solution type (Internal, Vendor)
+- **Reuse Potential Filter** - Filter by reuse potential level (High, Medium, Low)
+- **Clear Filters** - One-click reset of all search and filter criteria
+
+### Market Solutions Search & Filtering
+
+#### Search Capabilities
+
+- **Vendor & Solution Search** - Search across solution names, vendors, categories, descriptions, and capabilities
+- **Feature Matching** - Searches through solution features and industry capabilities
+- **Multi-Field Search** - Comprehensive search across all solution metadata
+
+#### Filter Options
+
+- **Category Filter** - Filter by solution category (Asset Management, Data Platform, CRM, Project Management, IT Service Management)
+- **Gartner Quadrant Filter** - Filter by Gartner Magic Quadrant position (Leader, Challenger, Visionary, Niche Player)
+- **Vendor Filter** - Filter by specific vendors (IBM, SAP, Snowflake, Salesforce, Microsoft, ServiceNow)
+- **Clear Filters** - Reset all search and filter criteria instantly
+
+### User Experience Features
+
+#### Professional Interface Design
+
+- **Clean Layout** - Well-organized search and filter controls in dedicated sections
+- **Visual Hierarchy** - Clear separation between search input and filter dropdowns
+- **PETRONAS Branding** - Consistent emerald green styling for search buttons and focus states
+- **Responsive Design** - Mobile-optimized layout with stacked filters on smaller screens
+
+#### Interactive Elements
+
+- **Search Button** - Prominent search button with magnifying glass icon
+- **Filter Dropdowns** - Professional dropdown selectors with clear labels
+- **Clear Filters Button** - Easy reset functionality with visual feedback
+- **Results Counter** - Live display of filtered vs total results count
+
+#### Results Management
+
+- **No Results State** - Professional "no results found" message with suggestions
+- **Results Information** - Display of current filter status and result counts
+- **Filter Status Indicator** - Shows when filters are actively applied
+- **Instant Updates** - Real-time result updates as filters change
+
+### Technical Implementation
+
+#### Search Algorithm
+
+- **Case-Insensitive Matching** - Search works regardless of text case
+- **Multi-Field Search** - Searches across multiple solution properties simultaneously
+- **Partial Matching** - Finds solutions with partial keyword matches
+- **Array Searching** - Searches through capabilities and features arrays
+
+#### Filter Logic
+
+- **Combinatorial Filtering** - Multiple filters work together (AND logic)
+- **Dynamic Rendering** - Efficient re-rendering of filtered results
+- **State Management** - Maintains filter state during user interaction
+- **Performance Optimization** - Efficient filtering algorithms for smooth user experience
+
+### Business Value
+
+#### Enhanced Solution Discovery
+
+- **Faster Solution Finding** - Users can quickly locate relevant solutions using search and filters
+- **Targeted Results** - Precise filtering reduces information overload
+- **Better Decision Making** - Easy comparison of filtered solution sets
+- **Improved User Experience** - Professional search interface increases user adoption
+
+#### Operational Efficiency
+
+- **Reduced Search Time** - Advanced filtering capabilities speed up solution discovery
+- **Better Solution Reuse** - Enhanced discoverability of existing solutions increases reuse rates
+- **Informed Vendor Selection** - Sophisticated market solution filtering aids vendor evaluation
+- **Enterprise Scalability** - Search functionality scales with growing solution catalogs
+
+#### Knowledge Management
+
+- **Solution Catalog Optimization** - Search analytics can inform catalog organization
+- **Usage Insights** - Filter usage patterns reveal popular solution categories
+- **Content Discoverability** - Comprehensive search ensures no solutions are overlooked
+- **User Guidance** - Filter options help users understand available solution categories
+
+This search and filtering enhancement transforms the solution catalogs from static lists into dynamic, searchable repositories that enable efficient solution discovery and comparison, significantly improving the user experience and decision-making process.
