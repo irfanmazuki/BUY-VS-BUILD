@@ -849,3 +849,87 @@ This enhancement improves the user experience by ensuring users have full visibi
 - **Executive Confidence** - Shows tool is built on approved enterprise architecture guidelines
 
 This addition reinforces that the Buy vs Build Advisor is not just a technical tool, but a strategic implementation of PETRONAS Enterprise Architecture principles, ensuring all recommendations align with official company strategy and governance requirements.
+
+## AIEA Focal Chat Integration (Added)
+
+### Real-Time Communication with AIEA Key Focal
+
+- **Floating Chat Button** - Persistent chat button at bottom right corner for instant access to AIEA focal support
+- **Dynamic Focal Assignment** - Chat automatically connects to the appropriate AIEA focal based on selected Business Unit
+- **Professional Messenger Interface** - Enterprise-grade chat popup with modern messaging UI design
+- **Context-Aware Responses** - Intelligent response system that provides relevant guidance based on user queries
+
+### Chat Interface Features
+
+#### Floating Chat Button
+
+- **Prominent Positioning** - Fixed position at bottom right with PETRONAS emerald branding
+- **Clear Call-to-Action** - "Chat with AIEA Focal" label with chat icon
+- **Hover Effects** - Smooth animations and shadow effects for professional feel
+- **Mobile Responsive** - Adapts to mobile screens with icon-only display
+
+#### Chat Popup Window
+
+- **Professional Design** - 350px width, 500px height popup with rounded corners and shadows
+- **Header Section** - Shows assigned AIEA focal name, online status, and close button
+- **Message Area** - Scrollable message history with user and AIEA focal messages
+- **Input Section** - Text input with send button and Enter key support
+- **Visual Distinction** - Different colors for user (purple) vs AIEA focal (emerald) messages
+
+### Intelligent Response System
+
+#### Context-Aware Responses
+
+- **Buy vs Build Guidance** - Reinforces EA principle when users ask about build vs buy decisions
+- **Budget & TCO Advice** - Provides guidance on cost analysis and total cost of ownership
+- **Approval Workflow Support** - Explains 3-tier approval process and requirements
+- **Existing Solutions Promotion** - Encourages reuse and helps identify existing solution matches
+- **Requirements Clarification** - Assists with functional vs non-functional requirement categorization
+- **Integration Guidance** - Provides advice on enterprise system integration capabilities
+- **Timeline Planning** - Offers realistic timeline expectations for different solution approaches
+
+#### Dynamic Focal Assignment
+
+- **Business Unit Integration** - Chat focal name updates automatically when BU is selected
+- **Personalized Experience** - Users connect with their specific BU's AIEA focal (e.g., "AIEA Upstream")
+- **Consistent Branding** - Maintains PETRONAS visual identity throughout chat experience
+
+### Technical Implementation
+
+#### Real-Time Simulation
+
+- **Typing Delays** - Realistic 1-3 second response delays to simulate human interaction
+- **Message Timestamps** - Real-time timestamps for all messages
+- **Scroll Management** - Auto-scroll to latest messages for optimal user experience
+- **Input Validation** - Prevents empty message submission
+
+#### Responsive Design
+
+- **Mobile Optimization** - Chat popup adapts to mobile screen sizes
+- **Touch-Friendly** - Larger touch targets and mobile-optimized interactions
+- **Cross-Platform** - Consistent experience across desktop and mobile devices
+
+### Business Value
+
+#### Enhanced User Support
+
+- **Immediate Assistance** - Users can get instant help without leaving the application
+- **Expert Guidance** - Direct access to AIEA focal expertise for complex decisions
+- **Reduced Friction** - Eliminates need for separate communication channels
+- **Contextual Help** - Assistance is tailored to current user context and business unit
+
+#### Improved Decision Quality
+
+- **Real-Time Clarification** - Users can clarify requirements and constraints immediately
+- **EA Principle Reinforcement** - Consistent messaging about buy vs build strategy
+- **Process Guidance** - Step-by-step assistance through approval workflows
+- **Best Practice Sharing** - AIEA focals can share lessons learned and recommendations
+
+#### Enterprise Integration
+
+- **Organizational Alignment** - Connects users with appropriate BU-specific AIEA resources
+- **Governance Support** - Ensures decisions align with enterprise architecture principles
+- **Knowledge Transfer** - Facilitates sharing of EA knowledge and best practices
+- **Relationship Building** - Strengthens connection between business users and EA team
+
+This chat integration transforms the Buy vs Build Advisor from a self-service tool into a collaborative platform that combines AI-powered analysis with human expertise, ensuring users receive both automated recommendations and personalized guidance from PETRONAS Enterprise Architecture professionals.

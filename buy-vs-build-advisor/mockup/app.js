@@ -87,6 +87,31 @@ function setupEventListeners() {
   if (buFilter) {
     buFilter.addEventListener("change", filterRequests);
   }
+
+  // Chat handlers
+  const floatingChatBtn = document.getElementById("floatingChatBtn");
+  if (floatingChatBtn) {
+    floatingChatBtn.addEventListener("click", openChat);
+  }
+
+  const closeChatBtn = document.getElementById("closeChatBtn");
+  if (closeChatBtn) {
+    closeChatBtn.addEventListener("click", closeChat);
+  }
+
+  const sendChatBtn = document.getElementById("sendChatBtn");
+  if (sendChatBtn) {
+    sendChatBtn.addEventListener("click", sendChatMessage);
+  }
+
+  const chatInput = document.getElementById("chatInput");
+  if (chatInput) {
+    chatInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        sendChatMessage();
+      }
+    });
+  }
 }
 
 function switchTab(tabName) {
@@ -122,6 +147,9 @@ function updateAIEAFocal() {
   } else {
     aieaFocalField.value = "";
   }
+
+  // Update chat focal name as well
+  updateChatFocalName();
 }
 
 function loadSampleRequirements() {
@@ -2028,3 +2056,131 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeSampleRepository();
   }, 1000);
 });
+// Chat functionality
+function openChat() {
+  const chatPopup = document.getElementById("chatPopup");
+  const chatFocalName = document.getElementById("chatFocalName");
+
+  // Update focal name based on selected BU
+  const businessUnit = document.getElementById("businessUnit").value;
+  if (businessUnit) {
+    chatFocalName.textContent = `AIEA ${businessUnit}`;
+  } else {
+    chatFocalName.textContent = "AIEA Focal";
+  }
+
+  chatPopup.style.display = "flex";
+
+  // Focus on input
+  setTimeout(() => {
+    document.getElementById("chatInput").focus();
+  }, 100);
+}
+
+function closeChat() {
+  document.getElementById("chatPopup").style.display = "none";
+}
+
+function sendChatMessage() {
+  const chatInput = document.getElementById("chatInput");
+  const message = chatInput.value.trim();
+
+  if (!message) return;
+
+  // Add user message
+  addChatMessage(message, "user");
+
+  // Clear input
+  chatInput.value = "";
+
+  // Simulate AIEA focal response
+  setTimeout(
+    () => {
+      const response = generateAIEAResponse(message);
+      addChatMessage(response, "aiea");
+    },
+    1000 + Math.random() * 2000,
+  ); // Random delay 1-3 seconds
+}
+
+function addChatMessage(text, sender) {
+  const chatMessages = document.getElementById("chatMessages");
+  const messageDiv = document.createElement("div");
+  messageDiv.className = `message ${sender === "user" ? "user-message" : "aiea-message"}`;
+
+  const currentTime = new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  messageDiv.innerHTML = `
+    <div class="message-avatar">${sender === "user" ? "👤" : "👤"}</div>
+    <div class="message-content">
+      <div class="message-text">${text}</div>
+      <div class="message-time">${currentTime}</div>
+    </div>
+  `;
+
+  chatMessages.appendChild(messageDiv);
+
+  // Scroll to bottom
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function generateAIEAResponse(userMessage) {
+  const message = userMessage.toLowerCase();
+
+  // Context-aware responses based on user message
+  if (message.includes("buy") || message.includes("build")) {
+    return "Great question! Remember our EA principle: 'Maximize value through buy rather than build.' I can help you evaluate if your requirements truly need custom development or if existing solutions can meet your needs.";
+  }
+
+  if (message.includes("budget") || message.includes("cost")) {
+    return "For budget considerations, I recommend looking at the TCO analysis in the Results tab. We should also consider the total cost of ownership over 3-5 years, not just initial implementation costs.";
+  }
+
+  if (message.includes("approval") || message.includes("workflow")) {
+    return "The approval workflow follows our standard 3-tier process: Manager → Senior Manager → Business Acknowledgement. I can help expedite this if you have all the required documentation ready.";
+  }
+
+  if (message.includes("existing") || message.includes("reuse")) {
+    return "Excellent! Reusing existing solutions is always our preferred approach. Have you checked the Existing Solutions catalog? I can help identify potential matches for your requirements.";
+  }
+
+  if (message.includes("requirements") || message.includes("functional")) {
+    return "When defining requirements, be specific about functional vs non-functional needs. This helps our matching algorithm find the best existing solutions. Need help categorizing your requirements?";
+  }
+
+  if (message.includes("integration") || message.includes("api")) {
+    return "Integration capabilities are crucial for enterprise solutions. Most of our existing solutions have proven integration patterns with SAP and other enterprise systems. What specific integrations do you need?";
+  }
+
+  if (message.includes("timeline") || message.includes("urgent")) {
+    return "For urgent requirements, existing solutions or market leaders typically offer the fastest implementation. Custom builds usually take 6-18 months depending on complexity. What's your target timeline?";
+  }
+
+  if (message.includes("help") || message.includes("support")) {
+    return "I'm here to help! I can assist with requirement analysis, solution recommendations, approval processes, and connecting you with the right technical teams. What specific area do you need support with?";
+  }
+
+  // Default responses
+  const defaultResponses = [
+    "Thanks for reaching out! I'm here to help guide you through the Buy vs Build decision process. What specific aspect would you like to discuss?",
+    "I can help you navigate our EA principles and find the best solution approach for your needs. What's your main concern?",
+    "Let me know how I can assist with your analysis. I have access to all our existing solutions and can help with the approval process.",
+    "Great to connect! I'm here to ensure your solution aligns with our EA strategy. What would you like to explore?",
+    "I can provide guidance on solution selection, budget planning, and approval workflows. What's your priority right now?",
+  ];
+
+  return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+}
+
+// Update chat focal name when business unit changes
+function updateChatFocalName() {
+  const businessUnit = document.getElementById("businessUnit").value;
+  const chatFocalName = document.getElementById("chatFocalName");
+
+  if (chatFocalName && businessUnit) {
+    chatFocalName.textContent = `AIEA ${businessUnit}`;
+  }
+}
