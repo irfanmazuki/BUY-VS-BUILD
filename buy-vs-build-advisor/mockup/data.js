@@ -18,11 +18,40 @@ const mockData = {
         "Mobile access",
         "Reporting & analytics",
       ],
-      capabilities: ["Asset Management", "Maintenance", "Inventory"],
+      capabilities: [
+        "Asset Lifecycle Management",
+        "Preventive Maintenance",
+        "Work Order Management",
+        "Inventory Optimization",
+        "Mobile Workforce Management",
+        "Predictive Analytics",
+        "Compliance Management",
+        "Document Management",
+        "Workflow Automation",
+        "Real-time Monitoring",
+      ],
+      industryCapabilities: {
+        "Workflow Management":
+          "Advanced workflow engine with approval routing, escalation rules, and automated task assignment",
+        "Asset Performance Management":
+          "Real-time asset health monitoring with KPI dashboards and performance trending",
+        "Maintenance Optimization":
+          "Condition-based maintenance scheduling with failure prediction algorithms",
+        "Mobile Operations":
+          "Offline-capable mobile app for field technicians with barcode scanning and photo capture",
+        "Integration Platform":
+          "REST APIs and SAP integration for seamless data exchange with enterprise systems",
+        "Regulatory Compliance":
+          "Built-in compliance frameworks for ISO 55000, API standards, and safety regulations",
+      },
       users: 1200,
       reusePotential: "High",
       description:
         "Comprehensive asset and maintenance management system used across upstream operations.",
+      gartnerAlignment:
+        "Aligns with Gartner's Enterprise Asset Management (EAM) capabilities framework",
+      forresterAlignment:
+        "Meets Forrester's Connected Maintenance platform requirements",
     },
     {
       id: "sol-002",
@@ -39,11 +68,40 @@ const mockData = {
         "Real-time streaming",
         "ML model deployment",
       ],
-      capabilities: ["Data Integration", "Analytics", "Data Governance"],
+      capabilities: [
+        "Data Lake Architecture",
+        "Real-time Data Processing",
+        "Data Governance & Lineage",
+        "Self-Service Analytics",
+        "Machine Learning Operations",
+        "API Management",
+        "Data Quality Management",
+        "Master Data Management",
+        "Data Catalog & Discovery",
+        "Advanced Analytics",
+      ],
+      industryCapabilities: {
+        "Data Fabric Architecture":
+          "Unified data management across hybrid cloud environments with automated data discovery",
+        "Streaming Analytics":
+          "Real-time data processing with Apache Kafka and Spark for operational intelligence",
+        "DataOps Automation":
+          "CI/CD pipelines for data with automated testing, validation, and deployment",
+        "Governance & Compliance":
+          "Comprehensive data lineage, privacy controls, and regulatory compliance (GDPR, SOX)",
+        "Self-Service BI":
+          "Drag-and-drop analytics interface with natural language query capabilities",
+        "ML Model Management":
+          "End-to-end MLOps with model versioning, A/B testing, and performance monitoring",
+      },
       users: 450,
       reusePotential: "High",
       description:
         "Centralized data platform for ingestion, processing, and analytics across PETRONAS.",
+      gartnerAlignment:
+        "Follows Gartner's Data and Analytics Platform architecture patterns",
+      forresterAlignment:
+        "Implements Forrester's Enterprise Data Fabric reference architecture",
     },
     {
       id: "sol-003",
@@ -59,10 +117,39 @@ const mockData = {
         "Compliance checks",
         "Invoice processing",
       ],
-      capabilities: ["Vendor Management", "Procurement", "Compliance"],
+      capabilities: [
+        "Supplier Lifecycle Management",
+        "Contract Lifecycle Management",
+        "Procurement Workflow",
+        "Supplier Risk Management",
+        "Performance Analytics",
+        "Compliance Automation",
+        "Invoice Automation",
+        "Spend Analytics",
+        "Supplier Collaboration",
+        "Audit Trail Management",
+      ],
+      industryCapabilities: {
+        "Procurement Orchestration":
+          "End-to-end procurement workflows with approval hierarchies and spend controls",
+        "Supplier Risk Intelligence":
+          "Real-time supplier risk monitoring with ESG scoring and financial health analysis",
+        "Contract Intelligence":
+          "AI-powered contract analysis with clause extraction and obligation tracking",
+        "Spend Optimization":
+          "Advanced spend analytics with category management and savings opportunity identification",
+        "Supplier Collaboration":
+          "Integrated supplier portal with document sharing, communication, and performance feedback",
+        "Compliance Automation":
+          "Automated compliance checking against regulatory requirements and company policies",
+      },
       users: 680,
       reusePotential: "Medium",
       description: "SAP Ariba-based vendor and contract management system.",
+      gartnerAlignment:
+        "Based on Gartner Magic Quadrant Leader SAP Ariba for Procurement Solutions",
+      forresterAlignment:
+        "Implements Forrester Wave Strategic Sourcing Suite capabilities",
     },
     {
       id: "sol-004",
@@ -79,14 +166,39 @@ const mockData = {
         "Portfolio dashboards",
       ],
       capabilities: [
-        "Project Management",
-        "Resource Planning",
-        "Financial Tracking",
+        "Portfolio Management",
+        "Project Planning & Scheduling",
+        "Resource Management",
+        "Financial Management",
+        "Risk & Issue Management",
+        "Collaboration Tools",
+        "Reporting & Analytics",
+        "Workflow Automation",
+        "Document Management",
+        "Integration Platform",
       ],
+      industryCapabilities: {
+        "Portfolio Optimization":
+          "AI-driven portfolio optimization with resource leveling and strategic alignment scoring",
+        "Agile & Waterfall Support":
+          "Hybrid project methodologies with Scrum, Kanban, and traditional Gantt planning",
+        "Resource Intelligence":
+          "Skills-based resource matching with capacity planning and utilization analytics",
+        "Financial Controls":
+          "Integrated budgeting, forecasting, and earned value management with real-time cost tracking",
+        "Risk Analytics":
+          "Predictive risk modeling with Monte Carlo simulation and scenario planning",
+        "Stakeholder Collaboration":
+          "Microsoft Teams integration with automated status reporting and stakeholder dashboards",
+      },
       users: 320,
       reusePotential: "High",
       description:
         "Microsoft-based project and portfolio management tool for enterprise projects.",
+      gartnerAlignment:
+        "Microsoft Project recognized in Gartner's Project Portfolio Management software evaluation",
+      forresterAlignment:
+        "Aligns with Forrester's Collaborative Work Management platform capabilities",
     },
     {
       id: "sol-005",
@@ -102,11 +214,40 @@ const mockData = {
         "Analytics",
         "Integration with SAP",
       ],
-      capabilities: ["CRM", "Sales", "Marketing"],
+      capabilities: [
+        "Customer Data Management",
+        "Sales Force Automation",
+        "Marketing Automation",
+        "Customer Analytics",
+        "Lead Management",
+        "Opportunity Management",
+        "Campaign Management",
+        "Customer Service",
+        "Integration Platform",
+        "Mobile CRM",
+      ],
+      industryCapabilities: {
+        "Customer 360 Platform":
+          "Unified customer view with real-time data aggregation from multiple touchpoints",
+        "Intelligent Sales Automation":
+          "AI-powered lead scoring, opportunity prediction, and next-best-action recommendations",
+        "Omnichannel Marketing":
+          "Integrated marketing campaigns across email, social, web, and mobile channels",
+        "Predictive Analytics":
+          "Customer lifetime value modeling, churn prediction, and cross-sell/upsell optimization",
+        "Workflow Automation":
+          "Configurable business processes with approval workflows and automated task routing",
+        "Enterprise Integration":
+          "Pre-built connectors for SAP, Oracle, and other enterprise systems with real-time sync",
+      },
       users: 540,
       reusePotential: "Medium",
       description:
         "Custom-built CRM for B2B customer management and sales tracking.",
+      gartnerAlignment:
+        "Incorporates Gartner's CRM Customer Engagement Center capabilities",
+      forresterAlignment:
+        "Follows Forrester's B2B Marketing Automation platform best practices",
     },
   ],
 

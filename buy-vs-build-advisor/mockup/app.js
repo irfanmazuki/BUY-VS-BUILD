@@ -583,8 +583,21 @@ function renderCatalog() {
 }
 
 function createCatalogCard(solution) {
+  const industryCapabilitiesHtml = solution.industryCapabilities
+    ? Object.entries(solution.industryCapabilities)
+        .map(
+          ([capability, description]) => `
+      <div class="capability-item">
+        <div class="capability-name">${capability}</div>
+        <div class="capability-description">${description}</div>
+      </div>
+    `,
+        )
+        .join("")
+    : "";
+
   return `
-    <div class="catalog-card">
+    <div class="catalog-card enhanced">
       <div class="catalog-header">
         <div>
           <div class="catalog-title">${solution.name}</div>
@@ -601,16 +614,50 @@ function createCatalogCard(solution) {
         <span>👔 ${solution.owner}</span>
       </div>
       
-      <div style="border-top: 1px solid var(--border-light); padding-top: 12px; margin-top: 12px;">
+      <div class="cost-section">
         <div class="catalog-cost">
           RM${(solution.annualCost / 1000).toFixed(0)}k
           <span class="catalog-cost-label">/ year</span>
         </div>
       </div>
       
-      <div style="margin-top: 12px; font-size: 12px; color: var(--text-secondary);">
-        <strong>Capabilities:</strong> ${solution.capabilities.join(", ")}
+      <div class="capabilities-section">
+        <div class="section-title">Core Capabilities</div>
+        <div class="capabilities-grid">
+          ${solution.capabilities
+            .slice(0, 6)
+            .map((cap) => `<span class="capability-tag">${cap}</span>`)
+            .join("")}
+          ${solution.capabilities.length > 6 ? `<span class="capability-tag more">+${solution.capabilities.length - 6} more</span>` : ""}
+        </div>
       </div>
+
+      ${
+        solution.industryCapabilities
+          ? `
+        <div class="industry-capabilities-section">
+          <div class="section-title">
+            Industry-Grade Capabilities
+            <span class="industry-badge">Gartner/Forrester Aligned</span>
+          </div>
+          <div class="industry-capabilities">
+            ${industryCapabilitiesHtml}
+          </div>
+        </div>
+      `
+          : ""
+      }
+
+      ${
+        solution.gartnerAlignment || solution.forresterAlignment
+          ? `
+        <div class="analyst-alignment">
+          ${solution.gartnerAlignment ? `<div class="alignment-item gartner">📊 ${solution.gartnerAlignment}</div>` : ""}
+          ${solution.forresterAlignment ? `<div class="alignment-item forrester">📈 ${solution.forresterAlignment}</div>` : ""}
+        </div>
+      `
+          : ""
+      }
     </div>
   `;
 }
