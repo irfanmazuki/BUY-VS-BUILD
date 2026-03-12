@@ -646,3 +646,39 @@ This enhancement transforms the existing solutions catalog from a basic listing 
 - **Visual Impact** - Engaging design that effectively communicates solution value
 
 This Solution Overview tab transforms the Buy vs Build Advisor into a complete solution package with professional documentation suitable for executive presentations, stakeholder briefings, and enterprise solution showcases.
+
+## AIEA Focal Auto-Assignment (Added)
+
+### Automatic AIEA Focal Assignment Based on Business Unit
+
+- **Auto-Assignment Logic** - AIEA focal automatically assigned based on selected Business Unit (BU)
+- **Business Unit Mapping** - Each BU maps to corresponding AIEA focal:
+  - Corporate → AIEA Corporate
+  - Downstream → AIEA Downstream
+  - Gas & Maritime → AIEA Gas & Maritime
+  - MPM → AIEA MPM
+  - PE&T → AIEA PE&T
+  - Upstream → AIEA Upstream
+
+### User Experience Features
+
+- **Read-Only Field** - AIEA focal field is automatically populated and cannot be manually edited
+- **Visual Indication** - Field styled with gray background and disabled cursor to indicate auto-assignment
+- **Real-Time Updates** - AIEA focal updates immediately when Business Unit selection changes
+- **Sample Data Integration** - Sample data loading also sets appropriate AIEA focal (Upstream → AIEA Upstream)
+
+### Implementation Details
+
+- **Event-Driven Updates** - Business Unit dropdown change event triggers AIEA focal assignment
+- **Clear Field Logic** - AIEA focal field clears when no Business Unit is selected
+- **Consistent Naming** - All AIEA focal names follow "AIEA [Business Unit]" format
+- **Form Integration** - AIEA focal value included in all form submissions and analysis requests
+
+### Business Process Alignment
+
+- **PETRONAS Structure** - Aligns with official PETRONAS organizational structure
+- **Governance Compliance** - Ensures proper AIEA focal assignment for each business unit
+- **Workflow Integration** - AIEA focal information available for approval workflow and request tracking
+- **Audit Trail** - AIEA focal assignment recorded in request repository for governance
+
+This enhancement ensures proper AIEA (Architecture, Integration, and Enterprise Applications) focal assignment based on business unit selection, aligning with PETRONAS organizational structure and governance requirements.

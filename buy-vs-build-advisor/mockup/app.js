@@ -20,6 +20,11 @@ function setupEventListeners() {
     .getElementById("loadSampleBtn")
     .addEventListener("click", loadSampleRequirements);
 
+  // Business Unit change handler for AIEA focal assignment
+  document
+    .getElementById("businessUnit")
+    .addEventListener("change", updateAIEAFocal);
+
   // Tab switching
   document.querySelectorAll(".tab").forEach((tab) => {
     tab.addEventListener("click", () => switchTab(tab.dataset.tab));
@@ -89,9 +94,31 @@ function switchTab(tabName) {
   document.getElementById(`${tabName}-tab`).classList.add("active");
 }
 
+// AIEA Focal Assignment based on Business Unit
+function updateAIEAFocal() {
+  const businessUnit = document.getElementById("businessUnit").value;
+  const aieaFocalField = document.getElementById("aieaFocal");
+
+  const aieaFocalMapping = {
+    Corporate: "AIEA Corporate",
+    Downstream: "AIEA Downstream",
+    "Gas & Maritime": "AIEA Gas & Maritime",
+    MPM: "AIEA MPM",
+    "PE&T": "AIEA PE&T",
+    Upstream: "AIEA Upstream",
+  };
+
+  if (businessUnit && aieaFocalMapping[businessUnit]) {
+    aieaFocalField.value = aieaFocalMapping[businessUnit];
+  } else {
+    aieaFocalField.value = "";
+  }
+}
+
 function loadSampleRequirements() {
   // Load sample business context
   document.getElementById("businessUnit").value = "Upstream";
+  document.getElementById("aieaFocal").value = "AIEA Upstream"; // Auto-assign AIEA focal
   document.getElementById("operatingUnit").value = "Malaysia Operations";
   document.getElementById("p4rBudget").value = "750000";
   document.getElementById("numberOfUsers").value = "150";
