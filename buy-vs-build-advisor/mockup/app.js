@@ -2021,3 +2021,10 @@ function initializeSampleRepository() {
   requestRepository.push(...sampleRequests);
   refreshRepository();
 }
+
+// Initialize sample data when page loads
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    initializeSampleRepository();
+  }, 1000);
+});

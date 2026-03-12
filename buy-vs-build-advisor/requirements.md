@@ -810,3 +810,42 @@ This enhancement transforms the market solutions catalog from a basic vendor lis
 - **Improved User Experience** - More logical flow from analysis to approval decision
 
 This enhancement improves the user experience by ensuring users have full visibility of their analysis results before deciding to submit for official approval, leading to more informed decision-making and reduced workflow interruptions.
+
+## EA Guiding Principle Integration (Added)
+
+### PETRONAS Enterprise Architecture Foundation
+
+- **EA Guiding Principle Display** - Added prominent section in Solution Overview tab showcasing the foundational EA principle
+- **Official EA Statement**: "Maximize value of IT solution through buy rather than build solutions. Only when business differentiation is vital and supported by a business case can custom build be considered."
+- **Strategic Alignment** - Emphasizes that the AI's decision logic is built on official PETRONAS Enterprise Architecture strategy
+- **Visual Prominence** - Styled as a highlighted quote card with PETRONAS emerald branding
+
+### Design Elements
+
+- **Quote Card Design** - Professional quote formatting with decorative quotation marks
+- **Emerald Branding** - Consistent use of PETRONAS emerald green for borders and accents
+- **Attribution Line** - Clear attribution to "PETRONAS Enterprise Architecture Strategy"
+- **Explanatory Text** - Additional context explaining how this principle guides the AI decision logic
+
+### Strategic Positioning
+
+- **Prominent Placement** - Positioned early in Solution Overview after Problem Statement to establish foundation
+- **Decision Logic Foundation** - Clearly states this principle drives the AI's recommendation algorithm
+- **Compliance Emphasis** - Reinforces that the tool ensures alignment with enterprise architecture strategy
+- **Business Differentiation Focus** - Highlights that custom builds are only recommended when justified by clear business differentiation
+
+### Visual Styling
+
+- **Gradient Background** - Subtle emerald gradient background for visual appeal
+- **Professional Typography** - Italic styling for the quote with proper font hierarchy
+- **Border Accent** - Emerald border with left accent line for emphasis
+- **Responsive Design** - Maintains readability across different screen sizes
+
+### Business Value
+
+- **EA Compliance** - Demonstrates tool alignment with official enterprise architecture principles
+- **Strategic Consistency** - Ensures all recommendations follow established PETRONAS strategy
+- **Governance Support** - Provides clear policy foundation for decision-making
+- **Executive Confidence** - Shows tool is built on approved enterprise architecture guidelines
+
+This addition reinforces that the Buy vs Build Advisor is not just a technical tool, but a strategic implementation of PETRONAS Enterprise Architecture principles, ensuring all recommendations align with official company strategy and governance requirements.
