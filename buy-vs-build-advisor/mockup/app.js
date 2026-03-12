@@ -54,9 +54,43 @@ function setupEventListeners() {
   // Approval workflow handlers - with error checking
   const submitForApprovalBtn = document.getElementById("submitForApprovalBtn");
   if (submitForApprovalBtn) {
-    submitForApprovalBtn.addEventListener("click", showApprovalWorkflow);
+    submitForApprovalBtn.addEventListener("click", showApprovalWorkflowPopup);
   }
 
+  // Popup approval workflow handlers
+  const closeApprovalPopupBtn = document.getElementById(
+    "closeApprovalPopupBtn",
+  );
+  if (closeApprovalPopupBtn) {
+    closeApprovalPopupBtn.addEventListener("click", closeApprovalWorkflowPopup);
+  }
+
+  const submitPopupWorkflowBtn = document.getElementById(
+    "submitPopupWorkflowBtn",
+  );
+  if (submitPopupWorkflowBtn) {
+    submitPopupWorkflowBtn.addEventListener(
+      "click",
+      submitPopupApprovalRequest,
+    );
+  }
+
+  const cancelPopupWorkflowBtn = document.getElementById(
+    "cancelPopupWorkflowBtn",
+  );
+  if (cancelPopupWorkflowBtn) {
+    cancelPopupWorkflowBtn.addEventListener(
+      "click",
+      closeApprovalWorkflowPopup,
+    );
+  }
+
+  const popupNewRequestBtn = document.getElementById("popupNewRequestBtn");
+  if (popupNewRequestBtn) {
+    popupNewRequestBtn.addEventListener("click", resetPopupWorkflow);
+  }
+
+  // Legacy workflow handlers (keeping for backward compatibility)
   const submitWorkflowBtn = document.getElementById("submitWorkflowBtn");
   if (submitWorkflowBtn) {
     submitWorkflowBtn.addEventListener("click", submitApprovalRequest);
@@ -2184,3 +2218,270 @@ function updateChatFocalName() {
     chatFocalName.textContent = `AIEA ${businessUnit}`;
   }
 }
+// Popup Approval Workflow Functions
+function showApprovalWorkflowPopup() {
+  const popup = document.getElementById("approvalWorkflowPopup");
+  popup.style.display = "flex";
+
+  // Pre-fill form with current analysis context
+  prefillPopupApprovalForm();
+
+  // Focus on first input
+  setTimeout(() => {
+    document.getElementById("popupRequestTitle").focus();
+  }, 100);
+}
+
+function closeApprovalWorkflowPopup() {
+  document.getElementById("approvalWorkflowPopup").style.display = "none";
+
+  // Reset form if not submitted
+  const workflowStatus = document.getElementById("popupWorkflowStatus");
+  if (workflowStatus.style.display === "none") {
+    resetPopupWorkflowForm();
+  }
+}
+
+function prefillPopupApprovalForm() {
+  // Get current analysis context
+  const businessUnit = document.getElementById("businessUnit").value;
+  const recommendation = currentAnalysis?.recommendation?.decision || "Unknown";
+
+  // Pre-fill request title
+  const requestTitle = document.getElementById("popupRequestTitle");
+  if (businessUnit && recommendation) {
+    requestTitle.value = `${businessUnit} - ${recommendation} Solution Analysis`;
+  }
+
+  // Pre-fill business justification with analysis summary
+  const businessJustification = document.getElementById(
+    "popupBusinessJustification",
+  );
+  if (currentAnalysis?.recommendation) {
+    const reasoning = currentAnalysis.recommendation.reasoning;
+    businessJustification.value = `Based on comprehensive Buy vs Build analysis:\n\nRecommendation: ${recommendation}\nReasoning: ${reasoning}\n\nThis analysis includes market research, existing solution evaluation, TCO modeling, and risk assessment to support the recommended approach.`;
+  }
+}
+
+function submitPopupApprovalRequest() {
+  // Validate required fields
+  const requiredFields = [
+    "popupRequestTitle",
+    "popupBusinessJustification",
+    "popupRequestorName",
+    "popupRequestorEmail",
+    "popupManagerEmail",
+    "popupSeniorManagerEmail",
+  ];
+
+  let isValid = true;
+  requiredFields.forEach((fieldId) => {
+    const field = document.getElementById(fieldId);
+    if (!field.value.trim()) {
+      field.style.borderColor = "#f02500";
+      isValid = false;
+    } else {
+      field.style.borderColor = "";
+    }
+  });
+
+  if (!isValid) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  // Hide form and show status
+  document.querySelector(".workflow-form").style.display = "none";
+  document.getElementById("popupWorkflowStatus").style.display = "block";
+
+  // Generate request ID
+  const requestId = `REQ-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 999) + 1).padStart(3, "0")}`;
+  document.getElementById("popupRequestId").textContent = requestId;
+
+  // Set submitted by name
+  const requestorName = document.getElementById("popupRequestorName").value;
+  document.getElementById("popupSubmittedBy").textContent = requestorName;
+
+  // Extract manager names from emails
+  const managerEmail = document.getElementById("popupManagerEmail").value;
+  const seniorManagerEmail = document.getElementById(
+    "popupSeniorManagerEmail",
+  ).value;
+
+  document.getElementById("popupManagerName").textContent =
+    extractNameFromEmail(managerEmail);
+  document.getElementById("popupSeniorManagerName").textContent =
+    extractNameFromEmail(seniorManagerEmail);
+
+  // Start approval simulation
+  simulatePopupApprovalProcess();
+
+  // Add to repository
+  addToRequestRepository({
+    id: requestId,
+    title: document.getElementById("popupRequestTitle").value,
+    businessUnit: document.getElementById("businessUnit").value || "Unknown",
+    requestor: requestorName,
+    requestorEmail: document.getElementById("popupRequestorEmail").value,
+    submitted: new Date().toLocaleString(),
+    managerStatus: "Pending",
+    seniorManagerStatus: "Not Started",
+    businessStatus: "Not Started",
+    overallStatus: "Pending Approval",
+  });
+}
+
+function simulatePopupApprovalProcess() {
+  // Simulate manager approval after 3 seconds
+  setTimeout(() => {
+    document.getElementById("popupStepManager").classList.remove("pending");
+    document.getElementById("popupStepManager").classList.add("active");
+    document
+      .getElementById("popupStepManager")
+      .querySelector(".timeline-icon").textContent = "✓";
+    document
+      .getElementById("popupStepManager")
+      .querySelector(".timeline-date").textContent =
+      new Date().toLocaleString();
+    document.getElementById("popupCurrentStatus").textContent =
+      "Pending Senior Manager Approval";
+
+    // Update senior manager to pending
+    document.getElementById("popupStepSenior").classList.add("pending");
+  }, 3000);
+
+  // Simulate senior manager approval after 6 seconds
+  setTimeout(() => {
+    document.getElementById("popupStepSenior").classList.remove("pending");
+    document.getElementById("popupStepSenior").classList.add("active");
+    document
+      .getElementById("popupStepSenior")
+      .querySelector(".timeline-icon").textContent = "✓";
+    document
+      .getElementById("popupStepSenior")
+      .querySelector(".timeline-date").textContent =
+      new Date().toLocaleString();
+    document.getElementById("popupCurrentStatus").textContent =
+      "Pending Business Acknowledgement";
+
+    // Update business acknowledgement to pending
+    document.getElementById("popupStepBusiness").classList.add("pending");
+  }, 6000);
+
+  // Simulate business acknowledgement after 9 seconds
+  setTimeout(() => {
+    document.getElementById("popupStepBusiness").classList.remove("pending");
+    document.getElementById("popupStepBusiness").classList.add("active");
+    document
+      .getElementById("popupStepBusiness")
+      .querySelector(".timeline-icon").textContent = "✓";
+    document
+      .getElementById("popupStepBusiness")
+      .querySelector(".timeline-date").textContent =
+      new Date().toLocaleString();
+    document.getElementById("popupCurrentStatus").textContent =
+      "Fully Approved";
+
+    // Show success message
+    showApprovalSuccessMessage();
+  }, 9000);
+}
+
+function showApprovalSuccessMessage() {
+  const statusHeader = document.querySelector(
+    "#popupWorkflowStatus .status-header",
+  );
+  const successBanner = document.createElement("div");
+  successBanner.className = "success-banner";
+  successBanner.innerHTML = `
+    <div style="background: linear-gradient(135deg, #00A19C, #00615e); color: white; padding: 16px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+      <div style="font-size: 24px; margin-bottom: 8px;">🎉</div>
+      <div style="font-weight: 700; font-size: 18px;">Request Fully Approved!</div>
+      <div style="font-size: 14px; opacity: 0.9;">Your Buy vs Build analysis has been approved for implementation.</div>
+    </div>
+  `;
+  statusHeader.parentNode.insertBefore(successBanner, statusHeader.nextSibling);
+}
+
+function resetPopupWorkflow() {
+  // Reset form
+  resetPopupWorkflowForm();
+
+  // Show form, hide status
+  document.querySelector(".workflow-form").style.display = "block";
+  document.getElementById("popupWorkflowStatus").style.display = "none";
+
+  // Reset timeline
+  resetPopupTimeline();
+}
+
+function resetPopupWorkflowForm() {
+  document.getElementById("popupRequestTitle").value = "";
+  document.getElementById("popupBusinessJustification").value = "";
+  document.getElementById("popupRequestorName").value = "";
+  document.getElementById("popupRequestorEmail").value = "";
+  document.getElementById("popupManagerEmail").value = "";
+  document.getElementById("popupSeniorManagerEmail").value = "";
+
+  // Reset field borders
+  document
+    .querySelectorAll(
+      "#approvalWorkflowPopup input, #approvalWorkflowPopup textarea",
+    )
+    .forEach((field) => {
+      field.style.borderColor = "";
+    });
+}
+
+function resetPopupTimeline() {
+  // Reset all timeline items
+  document
+    .querySelectorAll("#popupWorkflowStatus .timeline-item")
+    .forEach((item) => {
+      item.classList.remove("active", "pending");
+    });
+
+  // Reset icons and dates
+  document.getElementById("popupStepSubmitted").classList.add("active");
+  document
+    .getElementById("popupStepManager")
+    .querySelector(".timeline-icon").textContent = "⏳";
+  document
+    .getElementById("popupStepManager")
+    .querySelector(".timeline-date").textContent = "Pending";
+  document
+    .getElementById("popupStepSenior")
+    .querySelector(".timeline-icon").textContent = "○";
+  document
+    .getElementById("popupStepSenior")
+    .querySelector(".timeline-date").textContent = "-";
+  document
+    .getElementById("popupStepBusiness")
+    .querySelector(".timeline-icon").textContent = "○";
+  document
+    .getElementById("popupStepBusiness")
+    .querySelector(".timeline-date").textContent = "-";
+
+  // Remove success banner if exists
+  const successBanner = document.querySelector(".success-banner");
+  if (successBanner) {
+    successBanner.remove();
+  }
+}
+
+// Close popup when clicking overlay
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("popup-overlay")) {
+    closeApprovalWorkflowPopup();
+  }
+});
+
+// Close popup with Escape key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    const popup = document.getElementById("approvalWorkflowPopup");
+    if (popup.style.display === "flex") {
+      closeApprovalWorkflowPopup();
+    }
+  }
+});

@@ -901,15 +901,15 @@
           <div class="repository-stats">
             <div class="stat-card">
               <div class="stat-number" id="totalRequests">0</div>
-              <div class="stat-label">Total Requests</div>
+              <div class="stat-label-2">Total Requests</div>
             </div>
             <div class="stat-card">
               <div class="stat-number" id="pendingRequests">0</div>
-              <div class="stat-label">Pending</div>
+              <div class="stat-label-2">Pending</div>
             </div>
             <div class="stat-card">
               <div class="stat-number" id="approvedRequests">0</div>
-              <div class="stat-label">Approved</div>
+              <div class="stat-label-2">Approved</div>
             </div>
           </div>
         </div>
@@ -1019,6 +1019,168 @@
           placeholder="Type your message..."
         />
         <button id="sendChatBtn" class="chat-send-btn">Send</button>
+      </div>
+    </div>
+
+    <!-- Approval Workflow Popup -->
+    <div
+      id="approvalWorkflowPopup"
+      class="approval-popup"
+      style="display: none"
+    >
+      <div class="popup-overlay"></div>
+      <div class="popup-content">
+        <div class="popup-header">
+          <h3>Official Request & Approval Workflow</h3>
+          <button id="closeApprovalPopupBtn" class="popup-close-btn">×</button>
+        </div>
+
+        <div class="popup-body">
+          <p class="popup-description">
+            Submit your Buy vs Build analysis for official approval and business
+            acknowledgement
+          </p>
+
+          <div class="workflow-form">
+            <div class="form-group">
+              <label for="popupRequestTitle">Request Title</label>
+              <input
+                type="text"
+                id="popupRequestTitle"
+                placeholder="e.g., Asset Management System - Buy vs Build Analysis"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="popupBusinessJustification"
+                >Business Justification</label
+              >
+              <textarea
+                id="popupBusinessJustification"
+                placeholder="Explain the business need and urgency for this solution..."
+                rows="4"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="popupRequestorName">Requestor Name</label>
+              <input
+                type="text"
+                id="popupRequestorName"
+                placeholder="Your full name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="popupRequestorEmail">Requestor Email</label>
+              <input
+                type="email"
+                id="popupRequestorEmail"
+                placeholder="your.email@petronas.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="popupManagerEmail">Direct Manager Email</label>
+              <input
+                type="email"
+                id="popupManagerEmail"
+                placeholder="manager.email@petronas.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="popupSeniorManagerEmail">Senior Manager Email</label>
+              <input
+                type="email"
+                id="popupSeniorManagerEmail"
+                placeholder="senior.manager.email@petronas.com"
+              />
+            </div>
+
+            <div class="workflow-actions">
+              <button id="submitPopupWorkflowBtn" class="btn btn-primary">
+                Submit Official Request
+              </button>
+              <button id="cancelPopupWorkflowBtn" class="btn btn-secondary">
+                Cancel
+              </button>
+            </div>
+          </div>
+
+          <!-- Workflow Status -->
+          <div
+            id="popupWorkflowStatus"
+            class="workflow-status"
+            style="display: none"
+          >
+            <div class="status-header">
+              <h4>
+                Request Status:
+                <span id="popupCurrentStatus">Pending Manager Approval</span>
+              </h4>
+              <div class="request-id">
+                Request ID: <span id="popupRequestId">REQ-2024-001</span>
+              </div>
+            </div>
+
+            <div class="approval-timeline">
+              <div class="timeline-item active" id="popupStepSubmitted">
+                <div class="timeline-icon">✓</div>
+                <div class="timeline-content">
+                  <div class="timeline-title">Request Submitted</div>
+                  <div class="timeline-date">March 12, 2026 - 2:30 PM</div>
+                  <div class="timeline-user">
+                    By: <span id="popupSubmittedBy">John Doe</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="timeline-item pending" id="popupStepManager">
+                <div class="timeline-icon">⏳</div>
+                <div class="timeline-content">
+                  <div class="timeline-title">Manager Approval</div>
+                  <div class="timeline-date">Pending</div>
+                  <div class="timeline-user">
+                    Awaiting: <span id="popupManagerName">Jane Smith</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="timeline-item" id="popupStepSenior">
+                <div class="timeline-icon">○</div>
+                <div class="timeline-content">
+                  <div class="timeline-title">Senior Manager Approval</div>
+                  <div class="timeline-date">-</div>
+                  <div class="timeline-user">
+                    Awaiting:
+                    <span id="popupSeniorManagerName">Robert Johnson</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="timeline-item" id="popupStepBusiness">
+                <div class="timeline-icon">○</div>
+                <div class="timeline-content">
+                  <div class="timeline-title">Business Acknowledgement</div>
+                  <div class="timeline-date">-</div>
+                  <div class="timeline-user">
+                    Final approval for implementation
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="workflow-actions">
+              <button id="popupViewDetailsBtn" class="btn btn-secondary">
+                View Full Details
+              </button>
+              <button id="popupNewRequestBtn" class="btn btn-primary">
+                Create New Request
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
